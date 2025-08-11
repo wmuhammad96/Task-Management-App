@@ -1,0 +1,44 @@
+{
+    "tasks": [
+        {
+            "id": 1,
+            "task": "Finish Vue.js component",
+            "status": "In Progress",
+            "user": "Wali"
+        },
+        {
+            "id": 2,
+            "task": "Review pull request",
+            "status": "Pending",
+            "user": "Hasan"
+        },
+        {
+            "id": 3,
+            "task": "Deploy to production",
+            "status": "Completed",
+            "user": "Admin"
+        }
+    ],
+    "userData": [
+        {
+            " id ": "wali",
+            "name": "wali",
+            "email": "wali@gmail.com",
+            "password": "test123"
+        },
+        {
+            "id ": "wali",
+            "name": "faizan",
+            "email": "faizan@gmail.com",
+            "password": "test123"
+        }
+    ],
+    "admin" : [{
+                "id": "muneeb",
+                "name" : "muneeb",
+                "email" : "muneeb@gmail.com",
+                "password" : "test123",
+                "confirmPassword" : "test123"
+            }
+        ]
+}
