@@ -1,5 +1,6 @@
 <template>
-    <section class="flex flex-row-reverse h-14 w-auto sticky top-0 bg-gradient-to-r from-amber-600 to-amber-950 text-shadow-amber-100 items-center ">
+    <section
+        class="flex flex-row-reverse h-14 w-auto sticky top-0 bg-gradient-to-r from-amber-600 to-amber-950 text-shadow-amber-100 items-center ">
         <div>
             <router-link to="/" class="text-amber-100 mr-12">
                 Home
@@ -12,7 +13,7 @@
         </div>
         <div>
             <router-link to="/login" class="text-amber-100 mr-5">
-                login 
+                login
             </router-link>
         </div>
     </section>

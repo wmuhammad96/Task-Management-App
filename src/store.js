@@ -1,96 +1,88 @@
 import { createStore } from "vuex";
-import axios from "axios";
+import api from "../axios_api.js"
+import { endpoints } from "../axios_api.js";
 const store = createStore({
-    state(){
-        return {
-            tasks : []
-            // userData : [
-            //     {
-            //         id : 'wali',
-            //         name : 'wali', 
-            //         email : "wali@gmail.com",
-            //         password : "test123"
-            //     },
-            //     {
-            //         id : 'wali',
-            //         name : 'faizan', 
-            //         email : "faizan@gmail.com",
-            //         password : "test123"
-            //     }
-            // ],
-            // admin : {
-            //     id : 'muneeb',
-            //     name : 'muneeb',
-            //     email : "muneeb@gmail.com",
-            //     password : "test123",
-            //     confirmPassword : "test123"
-            // },
-            // tasks : [
-            //     {
-            //         id : "t1",
-            //         task : 'complete project',
-            //         status : 'panding ',
-            //         user : "wali"
-            //     },
-            //     {
-            //         id : "t2",
-            //         task : 'Check project',
-            //         status : 'panding ',
-            //         user : "faizan"
-            //     },
-            //     {
-            //         id : "t3",
-            //         task : 'Check project',
-            //         status : 'panding ',
-            //         user : "faizan"
-            //     },
-            //     {
-            //         id : "t4",
-            //         task : 'Check project',
-            //         status : 'panding ',
-            //         user : "faizan"
-            //     },
-            //     {
-            //         id : "t5",
-            //         task : 'Check project',
-            //         status : 'panding ',
-            //         user : "faizan"
-            //     },
-            //     {
-            //         id : "t6",
-            //         task : 'Check project',
-            //         status : 'panding ',
-            //         user : "faizan"
-            //     },
-            // ]
-        }
+  state() {
+    return {
+      tasks: [],
+      admins: [],
+      isAdmin: false
+    }
+  },
+  getters: {
+    getTask(state) {
+      return state.tasks
     },
-    getters :{
-       async getTask(state){
-            const res =await axios.get("http://localhost:5000/tasks")
-            console.log(res.data)
-            localStorage.setItem("res", JSON.stringify(res.data))
-            state.tasks = await res.data
-            console.log(state.tasks)
-        }
+    getAdmin(state) {
+      return state.admins
+    }
+  },
+  mutations: {
+    ADD_TASK(state, task) {
+      state.tasks.push(task);
     },
- mutations: {
+    ADD_ADMIN(state, admin) {
+      state.admins.push(admin);
+    },
+
     DELETE_TASK(state, id) {
       state.tasks = state.tasks.filter(task => task.id !== id);
     },
-     UPDATE_TASK(state, updatedTask) {
+    UPDATE_TASK(state, updatedTask) {
       const index = state.tasks.findIndex(task => task.id === updatedTask.id);
       if (index !== -1) {
         state.tasks[index] = updatedTask;
       }
+    },
+    SET_TASK(state, tasks) {
+      state.tasks = tasks;
     }
   },
   actions: {
-    deleteTask({ commit }, id) {
-      commit('DELETE_TASK', id);
+    async addTask({ commit }, newTask) {
+      try {
+        const response = await api.post(endpoints.tasks, newTask);
+        // After successful post, add task to local state
+        commit('ADD_TASK', response.data);
+      } catch (error) {
+        console.error("Error adding task:", error);
+        throw error;
+      }
     },
-     updateTask({ commit }, updatedTask) {
-      commit('UPDATE_TASK', updatedTask);
+    async addAdmin({ commit }, newAdmin) {
+      try {
+        const response = await api.post(endpoints.admin, newAdmin);
+        commit('ADD_ADMIN', response.data);
+      } catch (error) {
+        console.error("Error adding Admin:", error);
+        throw error;
+      }
+    },
+
+    async updateTaskOnServer({ commit }, updatedTask) {
+      try {
+        // Directly PUT updatedTask to server
+        const response = await api.post(endpoints.tasks`/${updatedTask.id}`, updatedTask);
+
+        // Update Vuex state
+        commit('UPDATE_TASK', response.data);
+      } catch (error) {
+        console.error('Error updating task:', error);
+        throw error;
+      }
+    },
+
+    async getTask({ commit }) {
+      const res = await api.get(endpoints.tasks)
+      commit("SET_TASK", res.data)
+    },
+    async deleteTask({ commit }, id) {
+      try {
+        await api.delete(endpoints.tasks + `/${id}`)
+        commit('DELETE_TASK', id);
+      } catch (error) {
+        alert('Failed to delete task', error)
+      }
     }
   }
 

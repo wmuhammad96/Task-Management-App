@@ -1,44 +1,62 @@
 {
-    "tasks": [
-        {
-            "id": 1,
-            "task": "Finish Vue.js component",
-            "status": "In Progress",
-            "user": "Wali"
-        },
-        {
-            "id": 2,
-            "task": "Review pull request",
-            "status": "Pending",
-            "user": "Hasan"
-        },
-        {
-            "id": 3,
-            "task": "Deploy to production",
-            "status": "Completed",
-            "user": "Admin"
-        }
-    ],
-    "userData": [
-        {
-            " id ": "wali",
-            "name": "wali",
-            "email": "wali@gmail.com",
-            "password": "test123"
-        },
-        {
-            "id ": "wali",
-            "name": "faizan",
-            "email": "faizan@gmail.com",
-            "password": "test123"
-        }
-    ],
-    "admin" : [{
-                "id": "muneeb",
-                "name" : "muneeb",
-                "email" : "muneeb@gmail.com",
-                "password" : "test123",
-                "confirmPassword" : "test123"
-            }
-        ]
+  "tasks": [
+    {
+      "id": "5",
+      "task": "Add users",
+      "status": "panding",
+      "user": "Admin"
+    },
+    {
+      "id": "447f",
+      "status": "pending",
+      "user": "CXVX",
+      "task": "xXVxvxaz"
+    }
+  ],
+  "admin": [
+    {
+      "id": "muneeb",
+      "name": "muneeb",
+      "email": "muneeb@gmail.com",
+      "password": "test123",
+      "confirmPassword": "test123"
+    },
+    {
+      "id": "5bd6",
+      "name": "walimohammad96",
+      "email": "wali@gmail.com",
+      "password": "kahanha",
+      "confirmPassword": "kahanha"
+    },
+    {
+      "id": "2ff0",
+      "name": "test1",
+      "email": "trainings-pk@nisum.com",
+      "password": "123456",
+      "confirmPassword": "123456"
+    },
+    {
+      "id": "d498",
+      "name": "walimohammad",
+      "email": "wali96@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456"
+    }
+  ],
+  "userData": [
+    {
+      " id ": "wali",
+      "name": "wali",
+      "email": "wali@gmail.com",
+      "password": "test123",
+      "id": "1a45"
+    },
+    {
+      "id ": "wali",
+      "name": "faizan",
+      "email": "faizan@gmail.com",
+      "password": "test123",
+      "id": "25f2"
+    }
+  ]
 }

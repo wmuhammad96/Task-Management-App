@@ -2,25 +2,27 @@
     <section>
         <div class="flex ">
             <div class="grid bg-gradient-to-b from-amber-600 to-amber-950 left-0 w-50 sticky  h-screen">
-                <button class="text-amber-100 cursor-pointer" @click="setComponent(TaskList)">
-                    Task List 
+                <div class="flex flex-col p-12">
+                <button class="text-amber-100 cursor-pointer mb-6" @click="setComponent(TaskList)">
+                    Task List
                 </button>
-                <button class="text-amber-100 cursor-pointer" @click="setComponent(UserDetail)">
-                    User Detail 
+                <button class="text-amber-100 cursor-pointer mb-6" @click="setComponent(UserDetail)">
+                    User Detail
                 </button>
-                <button class="text-amber-100 cursor-pointer" @click="setComponent('task-list')">
+                <button class="text-amber-100 cursor-pointer mb-6" @click="setComponent('task-list')">
                     <router-link to="/admin">
                         Admin Panel
                     </router-link>
-                    
+
                 </button>
                 <button class="text-amber-100 mb-7 cursor-pointer v" @click="setComponent(MyTask)">
-                   My task
+                    My task
                 </button>
+                </div>
             </div>
             <div class="flex-1/3">
                 <keep-alive>
-                <component :is="selectedComponent" ></component>
+                    <component :is="selectedComponent"></component>
                 </keep-alive>
             </div>
 
@@ -28,16 +30,16 @@
     </section>
 </template>
 <script setup>
-import {ref} from "vue"
-    import MyTask from '../components/MyTask.vue';
-    import TaskList from '../components/TaskList.vue';
-    import UserDetail from '../components/UserDetail.vue';
+import { ref } from "vue"
+import MyTask from '@/components/MyTask.vue';
+import TaskList from '@/components/TaskList.vue';
+import UserDetail from '@/components/UserDetail.vue';
 
-    const selectedComponent = ref(TaskList)
-    
-    function setComponent(cmp){
-        selectedComponent.value = cmp
-    }
+const selectedComponent = ref(TaskList)
+
+function setComponent(cmp) {
+    selectedComponent.value = cmp
+}
 
 
 
