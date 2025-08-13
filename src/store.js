@@ -5,24 +5,23 @@ const store = createStore({
   state() {
     return {
       tasks: [],
-      admins: [],
-      isAdmin: false
+      userData: [],
     }
   },
   getters: {
     getTask(state) {
       return state.tasks
     },
-    getAdmin(state) {
-      return state.admins
+    getUser(state) {
+      return state.userData
     }
   },
   mutations: {
     ADD_TASK(state, task) {
       state.tasks.push(task);
     },
-    ADD_ADMIN(state, admin) {
-      state.admins.push(admin);
+    ADD_USERS(state, user) {
+      state.userData.push(user);
     },
 
     DELETE_TASK(state, id) {
@@ -36,6 +35,9 @@ const store = createStore({
     },
     SET_TASK(state, tasks) {
       state.tasks = tasks;
+    },
+    SET_USER(state, userData) {
+      state.userData = userData;
     }
   },
   actions: {
@@ -44,24 +46,29 @@ const store = createStore({
         const response = await api.post(endpoints.tasks, newTask);
         // After successful post, add task to local state
         commit('ADD_TASK', response.data);
+        
       } catch (error) {
         console.error("Error adding task:", error);
         throw error;
       }
     },
-    async addAdmin({ commit }, newAdmin) {
+    async addUser({ commit }, newUser) {
       try {
-        const response = await api.post(endpoints.admin, newAdmin);
-        commit('ADD_ADMIN', response.data);
+        const response = await api.post(endpoints.userData, newUser);
+        commit('ADD_USERS', response.data);
+        state.users = response.data
       } catch (error) {
-        console.error("Error adding Admin:", error);
+        console.error("Error in Adding User:", error);
         throw error;
       }
     },
-
+    async getUser ({commit}){
+    const response = await api.get(endpoints.userData)
+    commit("SET_USER", response.data)
+  
+},
     async updateTaskOnServer({ commit }, updatedTask) {
       try {
-        // Directly PUT updatedTask to server
         const response = await api.post(endpoints.tasks`/${updatedTask.id}`, updatedTask);
 
         // Update Vuex state

@@ -1,62 +1,36 @@
 {
   "tasks": [
     {
-      "id": "5",
-      "task": "Add users",
-      "status": "panding",
-      "user": "Admin"
-    },
-    {
-      "id": "447f",
+      "id": "12f3",
       "status": "pending",
-      "user": "CXVX",
-      "task": "xXVxvxaz"
-    }
-  ],
-  "admin": [
-    {
-      "id": "muneeb",
-      "name": "muneeb",
-      "email": "muneeb@gmail.com",
-      "password": "test123",
-      "confirmPassword": "test123"
+      "user": "wali",
+      "task": "Monitoring",
+      "projects": "DevOps & Deployment"
     },
     {
-      "id": "5bd6",
-      "name": "walimohammad96",
-      "email": "wali@gmail.com",
-      "password": "kahanha",
-      "confirmPassword": "kahanha"
-    },
-    {
-      "id": "2ff0",
-      "name": "test1",
-      "email": "trainings-pk@nisum.com",
-      "password": "123456",
-      "confirmPassword": "123456"
-    },
-    {
-      "id": "d498",
-      "name": "walimohammad",
-      "email": "wali96@gmail.com",
-      "password": "123456",
-      "confirmPassword": "123456"
+      "id": "8e8e",
+      "status": "pending",
+      "user": "wali",
+      "task": "Write unit tests",
+      "projects": "Testing & Quality Assurance"
     }
   ],
   "userData": [
     {
-      " id ": "wali",
-      "name": "wali",
-      "email": "wali@gmail.com",
-      "password": "test123",
-      "id": "1a45"
+      "id": "9352",
+      "name": "test1",
+      "email": "pk@nisum.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "Yes"
     },
     {
-      "id ": "wali",
-      "name": "faizan",
-      "email": "faizan@gmail.com",
-      "password": "test123",
-      "id": "25f2"
+      "id": "3ca5",
+      "name": "walimohammad96",
+      "email": "wali@gmail.com",
+      "password": "asdfgh",
+      "confirmPassword": "asdfgh",
+      "admin": "No"
     }
   ]
 }

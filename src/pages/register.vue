@@ -38,6 +38,15 @@
                             class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:border-amber-700"
                             v-model="confirmPassword" required minlength="6" />
                     </div>
+                    <div class="mb-6 text-amber-950 text-center text-2xl">
+                        <label class="block mb-2 ">
+                            Admin:
+                            <select v-model="admin" class="border p-2 w-full" required>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </label>
+                    </div>
 
                     <div class="flex items-center justify-center">
                         <button type="submit"
@@ -69,6 +78,7 @@ const userName = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const email = ref('')
+const admin = ref('')
 // const adminData = reactive({
 //     userName: userName.value,
 //     password: password.value,
@@ -80,24 +90,26 @@ const register = async () => {
         alert("Please fill all required fields");
         return;
     }
-    const newAdmin = {
+    const newUser = {
         name: userName.value,
         email: email.value,
         password: password.value,
-        confirmPassword: confirmPassword.value
+        confirmPassword: confirmPassword.value,
+        admin : admin.value
     }
     try {
-        await store.dispatch("addAdmin", newAdmin);
-        console.log(newAdmin)
-        alert("Task added successfully!");
+        await store.dispatch("addUser", newUser);
+        console.log(newUser)
+        alert(" User added successfully!");
         router.push("/admin")
 
         userName.value = "";
         email.value = "";
         password.value = "";
         confirmPassword.value = ""
+        admin.value = ""
     } catch (error) {
-        alert("Failed to add admin");
+        alert("Failed to add User");
     }
 }
 
