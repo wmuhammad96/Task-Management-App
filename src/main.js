@@ -10,6 +10,7 @@ const app = createApp(App)
 
 app.use(router)
 app.use(store)
+store.dispatch('initializeTheme')
 app.component("base-nav", BaseNav)
 
 app.mount('#app')

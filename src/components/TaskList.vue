@@ -1,58 +1,147 @@
 <template>
   <div class="p-6">
-    <!-- Header Row -->
-    <div class="grid grid-cols-6 bg-gradient-to-r from-amber-950 to-amber-600 font-semibold border border-gray-300">
+    
+    <div class="grid grid-cols-6 bg-gradient-to-r from-amber-950 to-amber-600 font-semibold border border-amber-200">
       <div class="px-4 py-2 border border-gray-300 text-amber-100 text-center">Project Name</div>
       <div class="px-4 py-2 border border-gray-300 text-amber-100 text-center">Task Name</div>
       <div class="px-4 py-2 border border-gray-300 text-amber-100 text-center">Status</div>
-      <div class="px-4 py-2 border border-gray-300 text-amber-100 text-center" >User</div>
-      <div class="px-4 py-2 border border-gray-300 text-center text-amber-100" v-if="JSON.parse(logedUser)?.admin === 'Yes'">Edit</div>
-      <div class="px-4 py-2 border border-gray-300 text-center text-amber-100" v-if="JSON.parse(logedUser)?.admin === 'Yes'">Delete</div>
+      <div class="px-4 py-2 border border-gray-300 text-amber-100 text-center">User Id</div>
+      <div class="px-4 py-2 border border-gray-300 text-center text-amber-100" v-if="isAdmin">Edit</div>
+      <div class="px-4 py-2 border border-gray-300 text-center text-amber-100" v-else>Priorities</div>
+      <div class="px-4 py-2 border border-gray-300 text-center text-amber-100" v-if="isAdmin">Delete</div>
+      <div class="px-4 py-2 border border-gray-300 text-center text-amber-100" v-else>Description</div>
     </div>
-    <!-- Data Row -->
-    <div v-for="task in getTask" :key="task.id" class="grid grid-cols-6 border border-gray-300">
-      <div class="px-4 py-2 border border-gray-300 text-center">{{ task.projects }}</div>
-      <div class="px-4 py-2 border border-gray-300 text-center">{{ task.task }}</div>
-      <div class="px-4 py-2 border border-gray-300 text-center">{{ task.status }}</div>
-      <div class="px-4 py-2 border border-gray-300 text-center">{{ task.user }}</div>
-      
-      <button @click="editTask" v-if="JSON.parse(logedUser)?.admin === 'Yes'"
-        class="px-4 py-2 border border-gray-300 text-center text-blue-500 cursor-pointer">✏️</button>
-      <button @click="deleteTask(task.id)" v-if="JSON.parse(logedUser)?.admin === 'Yes'"
-        class="px-4 py-2 border border-gray-300 text-center text-red-500 cursor-pointer">🗑️</button>
+
+    
+    <div v-for="task in getTask" :key="task.id" class="grid grid-cols-6 border border-amber-100 bg-amber-100 text-amber-800  ">
+      <div class="px-4 py-2 border border-amber-800 text-center bg-amber-100 text-amber-900">{{ task.projects }}</div>
+      <div class="px-4 py-2 border text-center bg-amber-100 text-amber-900">{{ task.task }}</div>
+      <div class="px-4 py-2 border text-center bg-amber-100 text-amber-900">{{ task.status }}</div>
+      <div class="px-4 py-2 border text-center bg-amber-100 text-amber-900">{{ task.user }}</div>
+
+      <div v-if="isAdmin" class="px-4 py-2 border text-center">
+        <button @click="openEditModal(task)" class="text-blue-500 cursor-pointer">✏️</button>
+      </div>
+      <div v-else class="px-4 py-2 border text-center">{{ task.priorities }}</div>
+
+      <div v-if="isAdmin" class="px-4 py-2 border text-center">
+        <button @click="deleteTask(task.id)" class="text-red-500 cursor-pointer">🗑️</button>
+      </div>
+      <div v-else class="px-4 py-2 border text-center">{{ task.description }}</div>
     </div>
+
+  
+    <teleport to="body">
+      <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div class="bg-gradient-to-b from-amber-600 to-amber-950 w-full max-w-md rounded-xl shadow-lg p-6">
+          <h2 class="text-xl text-amber-100 font-bold mb-4">Edit Task</h2>
+
+          
+          <label class="block text-sm  text-amber-100 font-semibold mb-1">Project</label>
+          <select v-model="selectedProject" class="border p-2 w-full mb-3 text-amber-100 bg-amber-950">
+            <option v-for="p in projectOptions" :key="p" :value="p">{{ p }}</option>
+          </select>
+
+         
+          <label class="block text-sm font-semibold text-amber-100 mb-1">Task</label>
+          <select v-model="selectedTask" class="border p-2 w-full mb-3 text-amber-100 bg-amber-950">
+            <option v-for="t in taskOptions" :key="t" :value="t">{{ t }}</option>
+          </select>
+
+          
+          <label class="block text-sm text-amber-100 font-semibold mb-1">Status</label>
+          <select v-model="editData.status" class="border p-2 w-full mb-3 text-amber-100 bg-amber-950">
+            <option>Pending</option>
+            <option>In Progress</option>
+            <option>Completed</option>
+          </select>
+
+          
+          <label class="block text-sm  text-amber-100 font-semibold mb-1">User</label>
+          <input v-model="editData.user" class="border p-2 w-full mb-4 text-amber-100 bg-amber-950" />
+
+          <div class="flex justify-end gap-2">
+            <button @click="closeModal" class="px-4 py-2 rounded bg-amber-100 text-amber-950 cursor-pointer">Cancel</button>
+            <button @click="saveEdit" class="px-4 py-2 rounded bg-amber-100 text-amber-950 cursor-pointer">Save</button>
+          </div>
+        </div>
+      </div>
+    </teleport>
   </div>
 </template>
+
 <script setup>
-import { useStore } from 'vuex';
-import { computed, ref, onMounted } from 'vue';
+import { useStore } from 'vuex'
+import { computed, ref, onMounted, watch } from 'vue'
+
 const store = useStore()
-const editId = ref(null);
-const editStatus = ref('');
-const editRole = ref('');
+
 const getTask = computed(() => store.getters.getTask)
-const getUser = computed(() => store.getters.getUser)
+const projectTasks = computed(() => store.getters.getProjectTasks)
+const projectOptions = computed(() => Object.keys(projectTasks.value || {}))
 
-const logedUser = computed(()=> {
-  console.log("logged", sessionStorage.getItem('user'));
-  return sessionStorage.getItem('user');
-}
-)
 
-const roles = computed(() => 
-  getUser.value.map(user => user.admin === "Yes") // if your objects are plain
-)
+const logedUser = computed(() => sessionStorage.getItem('user'))
+const isAdmin = computed(() => JSON.parse(logedUser.value || 'null')?.admin === 'Yes')
 
-onMounted(async () => {
-  await store.dispatch("getUser");
-  await store.dispatch("getTask");
+
+const showModal = ref(false)
+const editData = ref({})
+const selectedProject = ref('')
+const selectedTask = ref('')
+
+
+const taskOptions = computed(() => {
+  return selectedProject.value ? (projectTasks.value[selectedProject.value] || []) : []
 })
-// onMounted(async ()=>{
 
-// })
-const deleteTask = (id) => {
+
+watch(selectedProject, () => {
+  if (!taskOptions.value.includes(selectedTask.value)) {
+    selectedTask.value = taskOptions.value[0] || ''
+  }
+})
+
+
+function openEditModal(task) {
+  editData.value = { ...task }               
+  selectedProject.value = task.projects      
+
+  if (!projectTasks.value[selectedProject.value]) {
+    const found = Object.entries(projectTasks.value).find(([_, tasks]) => tasks.includes(task.task))
+    selectedProject.value = found ? found[0] : projectOptions.value[0] || ''
+  }
+  
+  selectedTask.value = task.task
+  
+  if (!taskOptions.value.includes(selectedTask.value)) {
+    selectedTask.value = taskOptions.value[0] || ''
+  }
+
+  showModal.value = true
+}
+
+function closeModal() {
+  showModal.value = false
+}
+
+async function saveEdit() {
+  const payload = {
+    ...editData.value,
+    projects: selectedProject.value,
+    task: selectedTask.value
+  }
+  await store.dispatch('updateTaskOnServer', payload)
+  closeModal()
+}
+
+
+function deleteTask(id) {
   store.dispatch('deleteTask', id)
 }
-const editTask = () => {
-}
+
+onMounted(async () => {
+  await store.dispatch('getUser')
+  await store.dispatch('getTask')
+})
 </script>

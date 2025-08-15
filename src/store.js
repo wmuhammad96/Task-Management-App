@@ -4,17 +4,59 @@ import { endpoints } from "../axios_api.js";
 const store = createStore({
   state() {
     return {
+      theme: localStorage.getItem('theme') || 'light',
       tasks: [],
       userData: [],
+       login : "Login",
+       projectTasks :{
+    "Development task": [
+        "Build login system",
+        "Fix API bugs",
+        "Implement search functionality"
+    ],
+    "Testing & Quality Assurance": [
+        "Write unit tests",
+        "Manual testing for checkout",
+        "Automated UI testing"
+    ],
+    "Project & Sprint Planning": [
+        "Backlog grooming",
+        "Sprint planning meeting",
+        "Requirement gathering"
+    ],
+    "Internal Projects": [
+        "Company Website Redesign",
+        "Internal HR Portal",
+        "Automation Tooling"
+    ],
+    "DevOps & Deployment": [
+        "Environment Setup",
+        "CI/CD Maintenance",
+        "Monitoring"
+    ],
+    "Documentation & Communication": [
+        "API Docs",
+        "User Guides",
+        "Meeting Notes"
+    ],
+}
     }
   },
+  
   getters: {
+    getProjectTasks (state){
+      return state.projectTasks
+    },
     getTask(state) {
       return state.tasks
     },
     getUser(state) {
       return state.userData
-    }
+    },
+    login(state){
+      return state.login
+    },
+    currentTheme: state => state.theme
   },
   mutations: {
     ADD_TASK(state, task) {
@@ -22,6 +64,22 @@ const store = createStore({
     },
     ADD_USERS(state, user) {
       state.userData.push(user);
+    },
+    LOGIN_TO_LOGOUT(state){
+      if(state.login === "Login"){
+        state.login = "Logout"
+      }else{
+        state.login = "Login"
+      }
+    },
+    SET_THEME(state, theme) {
+      state.theme = theme
+      localStorage.setItem('theme', theme)
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
     },
 
     DELETE_TASK(state, id) {
@@ -41,6 +99,14 @@ const store = createStore({
     }
   },
   actions: {
+    toggleTheme({ commit, state }) {
+      const newTheme = state.theme === 'light' ? 'dark' : 'light'
+      commit('SET_THEME', newTheme)
+    },
+    initializeTheme({ commit }) {
+      const savedTheme = localStorage.getItem('theme') || 'light'
+      commit('SET_THEME', savedTheme)
+    },
     async addTask({ commit }, newTask) {
       try {
         const response = await api.post(endpoints.tasks, newTask);
@@ -56,7 +122,6 @@ const store = createStore({
       try {
         const response = await api.post(endpoints.userData, newUser);
         commit('ADD_USERS', response.data);
-        state.users = response.data
       } catch (error) {
         console.error("Error in Adding User:", error);
         throw error;
@@ -67,30 +132,28 @@ const store = createStore({
     commit("SET_USER", response.data)
   
 },
-    async updateTaskOnServer({ commit }, updatedTask) {
-      try {
-        const response = await api.post(endpoints.tasks`/${updatedTask.id}`, updatedTask);
-
-        // Update Vuex state
-        commit('UPDATE_TASK', response.data);
-      } catch (error) {
-        console.error('Error updating task:', error);
-        throw error;
-      }
-    },
+   async updateTaskOnServer({ commit }, updatedTask) {
+  try {
+    const response = await api.patch(`${endpoints.tasks}/${updatedTask.id}`, updatedTask);
+    commit('UPDATE_TASK', response.data);
+  } catch (error) {
+    console.error('Error updating task:', error);
+    throw error;
+  }
+},
 
     async getTask({ commit }) {
       const res = await api.get(endpoints.tasks)
       commit("SET_TASK", res.data)
     },
     async deleteTask({ commit }, id) {
-      try {
-        await api.delete(endpoints.tasks + `/${id}`)
-        commit('DELETE_TASK', id);
-      } catch (error) {
-        alert('Failed to delete task', error)
-      }
-    }
+  try {
+    await api.delete(`${endpoints.tasks}/${id}`);
+    commit('DELETE_TASK', id);
+  } catch (error) {
+    alert('Failed to delete task', error);
+  }
+}
   }
 
 })

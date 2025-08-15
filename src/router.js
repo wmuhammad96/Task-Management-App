@@ -3,6 +3,9 @@ import register from "@/pages/register.vue"
 import Login from "@/pages/login.vue"
 import home from "@/pages/home.vue"
 import admin from "@/pages/admin.vue"
+import TaskList from "./components/TaskList.vue"
+import UserDetail from "./components/UserDetail.vue"
+import MyTask from "./components/MyTask.vue"
 
 
 
@@ -11,8 +14,22 @@ const router = createRouter({
     routes: [
         { path: "/register", component: register },
         { path: "/login", component: Login },
-        { path: "/", component: home },
-        { path: "/admin", component: admin },
+        { path: "/", component: Login },
+        {
+            path: "/home", component: home, beforeEnter: (_to, _from, next) => {
+                if (JSON.parse(sessionStorage.getItem('user'))) {
+                    next()
+                } else {
+                    next('/login')
+                }
+            }, children: [
+                { path: "admin", component: admin },
+                { path: 'tasklist', component: TaskList },
+                { path: 'users', component: UserDetail },
+                { path: 'mytask', component: MyTask },
+            ]
+        },
+
 
     ]
 

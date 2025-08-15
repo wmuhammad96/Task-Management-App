@@ -50,13 +50,13 @@
 
                     <div class="flex items-center justify-center">
                         <button type="submit"
-                            class="rounded-lg bg-amber-950 text-amber-100 p-4 cursor-pointer text-2xl mr-1 w-3xs hover:opacity-80">
+                            class="rounded-lg bg-gradient-to-r from-amber-600 to-amber-950 text-amber-100 p-4 cursor-pointer text-2xl mr-1 w-3xs hover:opacity-80">
                             Register
                         </button>
 
                         <button type="button"
-                            class="rounded-lg bg-amber-950 text-amber-100 p-4 cursor-pointer text-2xl hover:opacity-80"
-                            @click="goToLogin">
+                            class="rounded-lg bg-gradient-to-r from-amber-950 to-amber-600 text-amber-100 p-4 cursor-pointer text-2xl hover:opacity-80"
+                            @click="sendToLogin">
                             Login
                         </button>
                     </div>
@@ -85,6 +85,9 @@ const admin = ref('')
 //     confirmPassword: confirmPassword.value,
 //     email: email.value,
 // })
+const sendToLogin=()=>{
+    router.push("/login")
+}
 const register = async () => {
     if (!userName.value || !email.value || !password.value || !confirmPassword.value) {
         alert("Please fill all required fields");
@@ -95,13 +98,12 @@ const register = async () => {
         email: email.value,
         password: password.value,
         confirmPassword: confirmPassword.value,
-        admin : admin.value
+        admin: admin.value
     }
     try {
         await store.dispatch("addUser", newUser);
-        console.log(newUser)
         alert(" User added successfully!");
-        router.push("/admin")
+        router.push("/home/admin")
 
         userName.value = "";
         email.value = "";

@@ -4,9 +4,18 @@
             Assign / Update Task
         </h2>
         <form @submit.prevent="addNewTask">
+              <label class="block mb-2">
+                Users:
+                <select v-model="user" class="border p-2 w-full" required>
+                    <option disabled value="">Select User</option>
+                    <option v-for="user in usersToList" :key="user.id" :value="user.id">
+                        {{ user.name }}
+                    </option>
+                </select>
+            </label>
             <label class="block mb-2">
-                User:
-                <input v-model="user" type="text" required class="border border-amber-950 p-2 w-full" />
+                Description:
+                <input v-model="description" type="text" required class="border border-amber-950 p-2 w-full" />
             </label>
 
             <label class="block mb-2">
@@ -41,20 +50,31 @@
                     <option value="completed">Completed</option>
                 </select>
             </label>
+            <label class="block mb-2">
+                Priorities:
+                <select v-model="priorities" class="border p-2 w-full" required>
+                    <option disabled value="">Select Priority</option>
+                    <option value="Urgent Delivery">Urgent Delivery</option>
+                    <option value="Normal delivery">Normal delivery</option>
+                    <option value="First Priority">First Priority</option>
+                </select>
+            </label>
 
             <button type="submit"
                 class="mt-4 px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-950 text-amber-200 rounded">
                 Assign Task
             </button>
+           
         </form>
     </div>
 </template>
 
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed , onMounted, reactive} from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import api, {endpoints} from '../../axios_api.js'
 
 const store = useStore();
 const router = useRouter();
@@ -63,42 +83,20 @@ const user = ref('');
 const status = ref('');
 const task = ref('');
 const projects = ref('');
+const description  = ref('');
+const priorities  = ref('');
+const usersToList = ref('')
 
-const projectTasks = {
-    "Development task": [
-        "Build login system",
-        "Fix API bugs",
-        "Implement search functionality"
-    ],
-    "Testing & Quality Assurance": [
-        "Write unit tests",
-        "Manual testing for checkout",
-        "Automated UI testing"
-    ],
-    "Project & Sprint Planning": [
-        "Backlog grooming",
-        "Sprint planning meeting",
-        "Requirement gathering"
-    ],
-    "Internal Projects": [
-        "Company Website Redesign",
-        "Internal HR Portal",
-        "Automation Tooling"
-    ],
-    "DevOps & Deployment": [
-        "Environment Setup",
-        "CI/CD Maintenance",
-        "Monitoring"
-    ],
-    "Documentation & Communication": [
-        "API Docs",
-        "User Guides",
-        "Meeting Notes"
-    ],
-};
+// const projectTasks = computed(()=>{
+//     store.getters.getProjectTasks
+// })
 
+onMounted(async()=>{
+   const response = await api.get(endpoints.userData)
+   usersToList.value = await response.data
+})
 const filteredTasks = computed(() => {
-    return projectTasks[projects.value] || [];
+    return store.getters.getProjectTasks[projects.value] || [];
 });
 
 const addNewTask = async () => {
@@ -110,16 +108,20 @@ const addNewTask = async () => {
         status: status.value,
         user: user.value,
         task: task.value,
-        projects: projects.value
+        projects: projects.value,
+        priorities : priorities.value,
+        description : description.value
     };
     try {
         await store.dispatch("addTask", newTask);
         alert("Task added successfully!");
-        router.push("/");
+        router.push("/home/tasklist");
         task.value = "";
         status.value = "";
         user.value = "";
         projects.value = "";
+        description.value = "";
+        priorities.value = ""
     } catch (error) {
         alert("Failed to add task");
     }

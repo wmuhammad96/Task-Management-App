@@ -19,13 +19,13 @@
 
                     <div class="flex items-center justify-center ">
                         <button
-                            class=" rounded-lg bg-amber-950 text-amber-100 p-4 cursor-pointer text-2xl mr-1 w-3xs hover:opacity-80"
+                            class=" rounded-lg bg-gradient-to-r from-amber-600 to-amber-950 text-amber-100 p-4 cursor-pointer text-2xl mr-1 w-3xs hover:opacity-80"
                             type="submit">
 
                             Login
                         </button>
                         <button
-                            class=" rounded-lg bg-amber-950 text-amber-100 p-4 cursor-pointer text-2xl hover:opacity-80">
+                            class=" rounded-lg bg-gradient-to-r from-amber-950 to-amber-600 text-amber-100 p-4 cursor-pointer text-2xl hover:opacity-80" @click="sendToRegister" type="button">
                             register
                         </button>
                     </div>
@@ -45,19 +45,28 @@
 import { ref } from "vue"
 import { useRouter } from "vue-router"
 import api, { endpoints } from "../../axios_api"
+import { useStore } from "vuex"
+
+const store = useStore()
 const router = useRouter()
 const email = ref("")
 const password = ref("")
+
+const sendToRegister=()=>{
+    router.push("/register")
+}
 
 const login = async () => {
     const response = await api.get(endpoints.userData)
     for (let user of response.data) {
         if (email.value === user.email && password.value === user.password && user.admin === "Yes") {
             sessionStorage.setItem('user' ,JSON.stringify(user))
-            return router.push("/admin")
+            store.commit('LOGIN_TO_LOGOUT')
+            return router.push("/home/admin")
         } else if (email.value === user.email && password.value === user.password && user.admin === "No") {
             sessionStorage.setItem('user' ,JSON.stringify(user))
-            return router.push("/")
+            store.commit('LOGIN_TO_LOGOUT')
+            return router.push("/home/tasklist")
         }
     }
 }

@@ -1,18 +1,94 @@
 {
   "tasks": [
     {
-      "id": "12f3",
-      "status": "pending",
-      "user": "wali",
-      "task": "Monitoring",
-      "projects": "DevOps & Deployment"
+      "id": "2f0f",
+      "status": "In Progress",
+      "user": "3ca5",
+      "task": "Fix API bugs",
+      "projects": "Development task",
+      "priorities": "Normal delivery",
+      "description": "need to complete task"
     },
     {
-      "id": "8e8e",
+      "id": "b7d2",
       "status": "pending",
-      "user": "wali",
+      "user": "6b78",
+      "task": "Environment Setup",
+      "projects": "DevOps & Deployment",
+      "priorities": "First Priority",
+      "description": "we need to deliver it tomorow"
+    },
+    {
+      "id": "5336",
+      "status": "pending",
+      "user": "3ca5",
+      "task": "Build login system",
+      "projects": "Development task",
+      "priorities": "Urgent Delivery",
+      "description": "something"
+    },
+    {
+      "id": "d31d",
+      "status": "in progress",
+      "user": "3ca5",
+      "task": "Build login system",
+      "projects": "Development task",
+      "priorities": "Urgent Delivery",
+      "description": "do it urgent "
+    },
+    {
+      "id": "ea37",
+      "status": "pending",
+      "user": "fb28",
+      "task": "Company Website Redesign",
+      "projects": "Internal Projects",
+      "priorities": "Normal delivery",
+      "description": "this is not urgent "
+    },
+    {
+      "id": "a4a6",
+      "status": "in progress",
+      "user": "b40e",
+      "task": "Fix API bugs",
+      "projects": "Development task",
+      "priorities": "Normal delivery",
+      "description": "hello"
+    },
+    {
+      "id": "74c6",
+      "status": "pending",
+      "user": "cea7",
+      "task": "Monitoring",
+      "projects": "DevOps & Deployment",
+      "priorities": "Urgent Delivery",
+      "description": "asfsafaaagaga"
+    },
+    {
+      "id": "9740",
+      "status": "in progress",
+      "user": "c6d6",
+      "task": "Implement search functionality",
+      "projects": "Development task",
+      "priorities": "First Priority",
+      "description": "asdfdsgfdshfdhsfd"
+    },
+    {
+      "id": "2c7e",
+      "status": "pending",
+      "user": "6b78",
+      "task": "Backlog grooming",
+      "projects": "Project & Sprint Planning",
+      "priorities": "Normal delivery",
+      "description": "afadHSHSFHdsgDZ"
+    },
+    {
+      "id": "f9ed",
+      "status": "pending",
+      "user": "moiz",
       "task": "Write unit tests",
-      "projects": "Testing & Quality Assurance"
+      "projects": "Testing & Quality Assurance",
+      "priorities": "Normal delivery",
+      "description": "sfsafadgdagdag"
     }
   ],
   "userData": [
@@ -30,6 +106,78 @@
       "email": "wali@gmail.com",
       "password": "asdfgh",
       "confirmPassword": "asdfgh",
+      "admin": "No"
+    },
+    {
+      "id": "fb28",
+      "name": "faizan",
+      "email": "faizan@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "b40e",
+      "name": "muneeb",
+      "email": "muneeb@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "cea7",
+      "name": "rehan",
+      "email": "rehan@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "dc48",
+      "name": "rehan",
+      "email": "rehan@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "5679",
+      "name": "rehan",
+      "email": "rehan@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "80e4",
+      "name": "moiz",
+      "email": "moiz@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "c6d6",
+      "name": "bilal",
+      "email": "bilal@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "4398",
+      "name": "farrukh",
+      "email": "farrukh@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "6b78",
+      "name": "abdullah",
+      "email": "abdullah@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
       "admin": "No"
     }
   ]
