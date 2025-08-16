@@ -1,15 +1,19 @@
 <template>
-    <div class="p-6 max-w-md mx-auto bg-amber-50 dark:bg-gray-800 rounded-lg shadow-md transition">
-        <h2 class="text-xl font-bold mb-4 bg-gradient-to-r from-amber-600 to-amber-950 dark:from-amber-500 dark:to-amber-900 bg-clip-text text-transparent">
+    <div class="p-4 sm:p-6 max-w-md mx-auto bg-amber-50 dark:bg-gray-800 rounded-lg shadow-md transition">
+        <h2 class="text-lg sm:text-xl font-bold mb-4 bg-gradient-to-r from-amber-600 to-amber-950 dark:from-amber-700 dark:to-amber-900 bg-clip-text text-transparent">
             Assign / Update Task
         </h2>
-        <form @submit.prevent="addNewTask">
-            <label class="block mb-2 text-amber-900 dark:text-gray-300">
-                Users:
+        <form @submit.prevent="addNewTask" class="space-y-4">
+            
+            <div class="space-y-2">
+                <label class="block text-sm sm:text-base text-amber-900 dark:text-gray-300 font-medium">
+                    Users:
+                </label>
                 <select 
                     v-model="user" 
-                    class="border border-amber-300 dark:border-gray-600 p-2 w-full mt-1
-                           bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200 rounded"
+                    class="w-full border border-amber-300 dark:border-gray-600 p-2 sm:p-3 rounded-lg
+                           bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200
+                           focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                     required
                 >
                     <option disabled value="">Select User</option>
@@ -17,25 +21,33 @@
                         {{ user.name }}
                     </option>
                 </select>
-            </label>
+            </div>
 
-            <label class="block mb-2 text-amber-900 dark:text-gray-300">
-                Description:
+           
+            <div class="space-y-2">
+                <label class="block text-sm sm:text-base text-amber-900 dark:text-gray-300 font-medium">
+                    Description:
+                </label>
                 <input 
                     v-model="description" 
                     type="text" 
                     required 
-                    class="border border-amber-300 dark:border-gray-600 p-2 w-full mt-1
-                           bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200 rounded" 
+                    class="w-full border border-amber-300 dark:border-gray-600 p-2 sm:p-3 rounded-lg
+                           bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200
+                           focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                 />
-            </label>
+            </div>
 
-            <label class="block mb-2 text-amber-900 dark:text-gray-300">
-                Projects:
+            
+            <div class="space-y-2">
+                <label class="block text-sm sm:text-base text-amber-900 dark:text-gray-300 font-medium">
+                    Projects:
+                </label>
                 <select 
                     v-model="projects" 
-                    class="border border-amber-300 dark:border-gray-600 p-2 w-full mt-1
-                           bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200 rounded"
+                    class="w-full border border-amber-300 dark:border-gray-600 p-2 sm:p-3 rounded-lg
+                           bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200
+                           focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                     required
                 >
                     <option disabled value="">Select a project</option>
@@ -46,14 +58,18 @@
                     <option value="DevOps & Deployment">DevOps & Deployment</option>
                     <option value="Documentation & Communication">Documentation & Communication</option>
                 </select>
-            </label>
+            </div>
 
-            <label class="block mb-2 text-amber-900 dark:text-gray-300">
-                Tasks:
+            
+            <div class="space-y-2">
+                <label class="block text-sm sm:text-base text-amber-900 dark:text-gray-300 font-medium">
+                    Tasks:
+                </label>
                 <select 
                     v-model="task" 
-                    class="border border-amber-300 dark:border-gray-600 p-2 w-full mt-1
-                           bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200 rounded"
+                    class="w-full border border-amber-300 dark:border-gray-600 p-2 sm:p-3 rounded-lg
+                           bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200
+                           focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                     required
                 >
                     <option disabled value="">Select a task</option>
@@ -61,14 +77,18 @@
                         {{ t }}
                     </option>
                 </select>
-            </label>
+            </div>
 
-            <label class="block mb-2 text-amber-900 dark:text-gray-300">
-                Status:
+            
+            <div class="space-y-2">
+                <label class="block text-sm sm:text-base text-amber-900 dark:text-gray-300 font-medium">
+                    Status:
+                </label>
                 <select 
                     v-model="status" 
-                    class="border border-amber-300 dark:border-gray-600 p-2 w-full mt-1
-                           bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200 rounded"
+                    class="w-full border border-amber-300 dark:border-gray-600 p-2 sm:p-3 rounded-lg
+                           bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200
+                           focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                     required
                 >
                     <option disabled value="">Select status</option>
@@ -76,14 +96,18 @@
                     <option value="in progress">In Progress</option>
                     <option value="completed">Completed</option>
                 </select>
-            </label>
+            </div>
 
-            <label class="block mb-2 text-amber-900 dark:text-gray-300">
-                Priorities:
+           
+            <div class="space-y-2">
+                <label class="block text-sm sm:text-base text-amber-900 dark:text-gray-300 font-medium">
+                    Priorities:
+                </label>
                 <select 
                     v-model="priorities" 
-                    class="border border-amber-300 dark:border-gray-600 p-2 w-full mt-1
-                           bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200 rounded"
+                    class="w-full border border-amber-300 dark:border-gray-600 p-2 sm:p-3 rounded-lg
+                           bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200
+                           focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                     required
                 >
                     <option disabled value="">Select Priority</option>
@@ -91,12 +115,14 @@
                     <option value="Normal delivery">Normal delivery</option>
                     <option value="First Priority">First Priority</option>
                 </select>
-            </label>
+            </div>
 
+          
             <button 
                 type="submit"
-                class="mt-4 px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-950 dark:from-amber-700 dark:to-amber-900 
-                       text-amber-100 dark:text-gray-300 rounded hover:opacity-90 transition shadow-md w-full"
+                class="mt-6 px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-950 dark:from-amber-700 dark:to-amber-900 
+                       text-amber-100 dark:text-gray-300 rounded-lg hover:opacity-90 transition shadow-md w-full
+                       focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
             >
                 Assign Task
             </button>

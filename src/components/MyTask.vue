@@ -1,53 +1,51 @@
 <template>
-  <div class="p-6 bg-amber-50 dark:bg-gray-800 text-amber-900 dark:text-gray-200 transition">
-    <!-- Header Row -->
-    <div class="grid grid-cols-6 border border-gray-300 
+  <div class="p-4 sm:p-6 bg-amber-50 dark:bg-gray-800 text-amber-900 dark:text-gray-200 transition overflow-x-auto">
+   
+    <div class="min-w-[600px] grid grid-cols-6 border border-gray-300 
              bg-gradient-to-r from-amber-950 to-amber-600 dark:bg-gradient-to-r dark:from-gray-900 dark:to-gray-700 
              font-semibold">
-      <div class="px-4 py-2 border border-gray-300 text-amber-100 dark:text-gray-300 text-center">Project Name</div>
-      <div class="px-4 py-2 border border-gray-300 text-amber-100 dark:text-gray-300 text-center">Task Name</div>
-      <div class="px-4 py-2 border border-gray-300 text-amber-100 dark:text-gray-300 text-center">Status</div>
-      <div class="px-4 py-2 border border-gray-300 text-amber-100 dark:text-gray-300 text-center">User Id</div>
-      <div class="px-4 py-2 border border-gray-300 text-center text-amber-100 dark:text-gray-300" v-if="isAdmin">Edit
-      </div>
-      <div class="px-4 py-2 border border-gray-300 text-center text-amber-100 dark:text-gray-300" v-else>Priorities
-      </div>
-      <div class="px-4 py-2 border border-gray-300 text-center text-amber-100 dark:text-gray-300" v-if="isAdmin">Delete
-      </div>
-      <div class="px-4 py-2 border border-gray-300 text-center text-amber-100 dark:text-gray-300" v-else>Description
+      <div class="px-2 sm:px-4 py-2 border border-gray-300 text-amber-100 dark:text-gray-300 text-center text-sm sm:text-base">Project</div>
+      <div class="px-2 sm:px-4 py-2 border border-gray-300 text-amber-100 dark:text-gray-300 text-center text-sm sm:text-base">Task</div>
+      <div class="px-2 sm:px-4 py-2 border border-gray-300 text-amber-100 dark:text-gray-300 text-center text-sm sm:text-base">Status</div>
+      <div class="px-2 sm:px-4 py-2 border border-gray-300 text-amber-100 dark:text-gray-300 text-center text-sm sm:text-base">User</div>
+      <div class="px-2 sm:px-4 py-2 border border-gray-300 text-center text-amber-100 dark:text-gray-300 text-sm sm:text-base" v-if="isAdmin">Edit</div>
+      <div class="px-2 sm:px-4 py-2 border border-gray-300 text-center text-amber-100 dark:text-gray-300 text-sm sm:text-base" v-else>Priority</div>
+      <div class="px-2 sm:px-4 py-2 border border-gray-300 text-center text-amber-100 dark:text-gray-300 text-sm sm:text-base" v-if="isAdmin">Delete</div>
+      <div class="px-2 sm:px-4 py-2 border border-gray-300 text-center text-amber-100 dark:text-gray-300 text-sm sm:text-base" v-else>Desc</div>
+    </div>
+
+   
+    <div class="min-w-[600px]">
+      <div v-for="task in showTaskUponUser" :key="task.id" class="grid grid-cols-6 border border-amber-200 dark:border-gray-600 
+               bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200">
+        <div class="px-2 sm:px-4 py-2 border border-amber-300 dark:border-gray-600 text-center text-sm sm:text-base truncate">{{ task.projects }}</div>
+        <div class="px-2 sm:px-4 py-2 border border-amber-300 dark:border-gray-600 text-center text-sm sm:text-base truncate">{{ task.task }}</div>
+        <div class="px-2 sm:px-4 py-2 border border-amber-300 dark:border-gray-600 text-center text-sm sm:text-base truncate">{{ task.status }}</div>
+        <div class="px-2 sm:px-4 py-2 border border-amber-300 dark:border-gray-600 text-center text-sm sm:text-base truncate">{{ task.user }}</div>
+
+        <div class="px-2 sm:px-4 py-2 border border-amber-300 dark:border-gray-600 text-center">
+          <button v-if="isAdmin" @click="openEditModal(task)"
+            class="text-blue-500 dark:text-blue-400 hover:opacity-80 transition cursor-pointer text-sm sm:text-base">
+            ✏️
+          </button>
+          <span v-else class="text-sm sm:text-base truncate">{{ task.priorities }}</span>
+        </div>
+
+        <div class="px-2 sm:px-4 py-2 border border-amber-300 dark:border-gray-600 text-center">
+          <button v-if="isAdmin" @click="deleteTask(task.id)"
+            class="text-red-500 dark:text-red-400 hover:opacity-80 transition cursor-pointer text-sm sm:text-base">
+            🗑️
+          </button>
+          <span v-else class="text-sm sm:text-base truncate">{{ task.description }}</span>
+        </div>
       </div>
     </div>
 
-    <!-- Task Rows -->
-    <div v-for="task in showTaskUponUser" :key="task.id" class="grid grid-cols-6 border border-amber-200 dark:border-gray-600 
-             bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200">
-      <div class="px-4 py-2 border border-amber-300 dark:border-gray-600 text-center">{{ task.projects }}</div>
-      <div class="px-4 py-2 border border-amber-300 dark:border-gray-600 text-center">{{ task.task }}</div>
-      <div class="px-4 py-2 border border-amber-300 dark:border-gray-600 text-center">{{ task.status }}</div>
-      <div class="px-4 py-2 border border-amber-300 dark:border-gray-600 text-center">{{ task.user }}</div>
-
-      <div class="px-4 py-2 border border-amber-300 dark:border-gray-600 text-center">
-        <button v-if="isAdmin" @click="openEditModal(task)"
-          class="text-blue-500 dark:text-blue-400 hover:opacity-80 transition cursor-pointer">
-          ✏️
-        </button>
-        <span v-else>{{ task.priorities }}</span>
-      </div>
-
-      <div class="px-4 py-2 border border-amber-300 dark:border-gray-600 text-center">
-        <button v-if="isAdmin" @click="deleteTask(task.id)"
-          class="text-red-500 dark:text-red-400 hover:opacity-80 transition cursor-pointer">
-          🗑️
-        </button>
-        <span v-else>{{ task.description }}</span>
-      </div>
-    </div>
-
-    <!-- Edit Modal -->
+   
     <teleport to="body">
-      <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
         <div
-          class="w-full max-w-md rounded-xl shadow-lg p-6 
+          class="w-full max-w-md rounded-xl shadow-lg p-6 mx-2
                  bg-gradient-to-b from-amber-600 to-amber-950 dark:bg-gradient-to-b dark:from-gray-800 dark:to-gray-900">
           <h2 class="text-xl text-amber-100 dark:text-gray-300 font-bold mb-4">Edit Task</h2>
 
@@ -91,7 +89,7 @@
   </div>
 </template>
 
-<!-- Script section remains EXACTLY the same -->
+
 <script setup>
 import { useStore } from 'vuex'
 import { computed, ref, onMounted, watch } from 'vue'
@@ -106,7 +104,6 @@ const isAdmin = computed(() => JSON.parse(logedUser.value || 'null')?.admin === 
 
 const showTaskUponUser = computed(() => {
   return getTask.value.filter(task => task.user === JSON.parse(logedUser.value)?.id
-
   )
 })
 

@@ -1,4 +1,4 @@
-// src/composables/useTheme.js
+
 import { watchEffect } from 'vue'
 import { useStore } from 'vuex'
 
