@@ -34,5 +34,15 @@ const router = createRouter({
     ]
 
 })
+router.beforeEach((to, _from, next) => {
+  const isAuthenticated = sessionStorage.getItem('user')
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login')
+  } else if (to.meta.guestOnly && isAuthenticated) {
+    next('/home')
+  } else {
+    next()
+  }
+})
 
 export default router

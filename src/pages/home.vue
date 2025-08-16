@@ -1,55 +1,63 @@
 <template>
-    <section>
-        <div class="flex ">
-            <div class="grid bg-gradient-to-b from-amber-600 to-amber-950 left-0 w-50 sticky  h-screen">
-                <div class="flex flex-col p-12">
-                    <button class="text-amber-100 cursor-pointer mb-6" @click="setComponent('task-list')">
-                        <router-link to="/home/tasklist">
-                            Task List
+    <section class="bg-amber-50 dark:bg-gray-800 transition min-h-screen">
+        <div class="flex">
+            <!-- Sidebar -->
+            <div class="grid bg-gradient-to-b from-amber-600 to-amber-950 dark:from-gray-800 dark:to-gray-900 
+                        left-0 w-50 sticky h-screen shadow-lg">
+                <div class="flex flex-col p-8 space-y-6">
+                    <button class="text-amber-100 dark:text-gray-300 hover:text-amber-200 dark:hover:text-gray-200 
+                                transition cursor-pointer text-left" @click="setComponent('task-list')">
+                        <router-link to="/home/tasklist" class="flex items-center gap-2">
+                            <span>Task List</span>
                         </router-link>
+                    </button>
 
+                    <button class="text-amber-100 dark:text-gray-300 hover:text-amber-200 dark:hover:text-gray-200 
+                                transition cursor-pointer text-left" @click="handleNavigation('/home/users')">
+                        <span>Users</span>
                     </button>
-                    <button class="text-amber-100 cursor-pointer mb-6" @click="handleNavigation('/home/users')">
-                        Users
+
+                    <button class="text-amber-100 dark:text-gray-300 hover:text-amber-200 dark:hover:text-gray-200 
+                                transition cursor-pointer text-left" @click="handleNavigation('/home/admin')">
+                        <span>Admin Panel</span>
                     </button>
-                    <button class="text-amber-100 cursor-pointer mb-6" @click="handleNavigation('/home/admin')">
-                        Admin Panel
-                    </button>
-                    <teleport to="body">
-                        <div v-if="showModal" class="fixed top-1/3 left-1/3 bg-gradient-to-r from-amber-600 to-amber-950 text-amber-100 p-4 border rounded shadow-lg">
-                            <p>{{ modalMessage }}</p>
-                            <button @click="showModal = false" class="mt-2 px-4 py-1 bg-amber-100 text-amber-950 rounded cursor-pointer">
-                                Close
-                            </button>
-                        </div>
-                    </teleport>
-                    <button class="text-amber-100 cursor-pointer mb-6" @click="setComponent(MyTask)">
-                        <router-link to="/home/mytask">
-                            My Task
+
+                    <button class="text-amber-100 dark:text-gray-300 hover:text-amber-200 dark:hover:text-gray-200 
+                                transition cursor-pointer text-left" @click="setComponent(MyTask)">
+                        <router-link to="/home/mytask" class="flex items-center gap-2">
+                            <span>My Task</span>
                         </router-link>
-
                     </button>
                 </div>
             </div>
-            <div class="flex-1/3">
-                <!-- <keep-alive>
-                    <component :is="selectedComponent"></component>
-                </keep-alive> -->
+
+            <!-- Main Content -->
+            <div class="flex-1 p-6 bg-amber-50 dark:bg-gray-800 transition">
                 <router-view />
             </div>
 
+            <!-- Modal -->
+            <teleport to="body">
+                <div v-if="showModal" class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+                    <div class="bg-gradient-to-r from-amber-600 to-amber-950 dark:from-gray-800 dark:to-gray-700 
+                                text-amber-100 dark:text-gray-300 p-6 rounded-lg shadow-xl max-w-md w-full">
+                        <p class="mb-4">{{ modalMessage }}</p>
+                        <button @click="showModal = false" class="px-4 py-2 bg-amber-100 dark:bg-gray-300 text-amber-950 dark:text-gray-900 
+                                       rounded hover:opacity-90 transition cursor-pointer w-full">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </teleport>
         </div>
     </section>
 </template>
+
 <script setup>
 import { ref, computed } from "vue"
 import { useRouter } from "vue-router"
 
-// import MyTask from '@/components/MyTask.vue';
-// import TaskList from '@/components/TaskList.vue';
-// import UserDetail from '@/components/UserDetail.vue';
 const router = useRouter()
-
 const selectedComponent = ref("")
 const showModal = ref(false)
 const modalMessage = ref('')
@@ -57,11 +65,10 @@ const modalMessage = ref('')
 function setComponent(cmp) {
     selectedComponent.value = cmp
 }
-const logedUser = computed(() => {
-    return sessionStorage.getItem('user');
-}
-)
 
+const logedUser = computed(() => {
+    return sessionStorage.getItem('user')
+})
 
 function handleNavigation(path) {
     if (JSON.parse(logedUser.value)?.admin === "No") {
@@ -71,7 +78,4 @@ function handleNavigation(path) {
         router.push(path)
     }
 }
-
-
-
 </script>

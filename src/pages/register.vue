@@ -1,77 +1,132 @@
 <template>
-    <section class="bg-[url('/image/bg.png')] bg-cover bg-center w-auto h-auto ">
-        <div class="flex h-screen ">
-            <div class="w-1/2">
-                <img src="/image/register.png" alt="registerImage"
-                    class="absolute left-0 top-1/2 -translate-y-1/2 w-96 h-[600px]" />
+    <section class="bg-[url('/image/bg.png')] bg-cover bg-center w-auto h-auto dark:bg-gray-900/90 transition">
+        <div class="flex h-screen">
+            <!-- Image Section -->
+            <div class="w-1/2 relative">
+                <img 
+                    src="/image/register.png" 
+                    alt="Registration Illustration"
+                    class="absolute left-0 top-1/2 -translate-y-1/2 w-96 h-[600px]
+                           shadow-xl rounded-lg border-4 border-amber-100/20 dark:border-gray-700/20"
+                />
             </div>
 
-            <form @submit.prevent="register" class="w-1/2 ">
-                <div class="flex-col w-full h-full p-6">
-                    <h2 class="text-4xl font-bold mb-6 text-center text-amber-950">Registration Desk </h2>
+            <!-- Registration Form -->
+            <form @submit.prevent="register" class="w-1/2 flex items-center justify-center">
+                <div class="flex-col w-full max-w-md p-8 rounded-xl backdrop-blur-sm bg-amber-50/80 dark:bg-gray-800/80 shadow-xl">
+                    <h2 class="text-4xl font-bold mb-8 text-center text-amber-950 dark:text-gray-300">
+                        Registration Desk
+                    </h2>
 
-                    <div class="mb-6 text-amber-950 text-center text-2xl">
-                        <label for="email">Email</label>
-                        <input type="email" id="email"
-                            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:border-amber-700"
-                            v-model="email" required />
-                    </div>
-
-                    <div class="mb-6 text-amber-950 text-center text-2xl">
-                        <label for="userName">User Name</label>
-                        <input type="text" id="userName"
-                            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:border-amber-700"
-                            v-model="userName" required />
-                        <p>{{ userName }}</p>
-                    </div>
-
-                    <div class="mb-6 text-amber-950 text-center text-2xl">
-                        <label for="password">Password</label>
-                        <input type="password" id="password"
-                            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:border-amber-700"
-                            v-model="password" required minlength="6" />
-                    </div>
-
-                    <div class="mb-6 text-amber-950 text-center text-2xl">
-                        <label for="confirmPassword">Confirm password</label>
-                        <input type="password" id="confirmPassword"
-                            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:border-amber-700"
-                            v-model="confirmPassword" required minlength="6" />
-                    </div>
-                    <div class="mb-6 text-amber-950 text-center text-2xl">
-                        <label class="block mb-2 ">
-                            Admin:
-                            <select v-model="admin" class="border p-2 w-full" required>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </select>
+                    <div class="mb-6">
+                        <label for="email" class="block mb-2 text-xl text-amber-950 dark:text-gray-300">
+                            Email
                         </label>
+                        <input 
+                            type="email" 
+                            id="email"
+                            class="w-full border border-amber-300 dark:border-gray-600 rounded-lg px-4 py-3 
+                                   bg-amber-100/50 dark:bg-gray-700 text-amber-950 dark:text-gray-200
+                                   focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            v-model="email" 
+                            required 
+                        />
                     </div>
 
-                    <div class="flex items-center justify-center">
-                        <button type="submit"
-                            class="rounded-lg bg-gradient-to-r from-amber-600 to-amber-950 text-amber-100 p-4 cursor-pointer text-2xl mr-1 w-3xs hover:opacity-80">
+                    <div class="mb-6">
+                        <label for="userName" class="block mb-2 text-xl text-amber-950 dark:text-gray-300">
+                            User Name
+                        </label>
+                        <input 
+                            type="text" 
+                            id="userName"
+                            class="w-full border border-amber-300 dark:border-gray-600 rounded-lg px-4 py-3 
+                                   bg-amber-100/50 dark:bg-gray-700 text-amber-950 dark:text-gray-200
+                                   focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            v-model="userName" 
+                            required 
+                        />
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="password" class="block mb-2 text-xl text-amber-950 dark:text-gray-300">
+                            Password
+                        </label>
+                        <input 
+                            type="password" 
+                            id="password"
+                            class="w-full border border-amber-300 dark:border-gray-600 rounded-lg px-4 py-3 
+                                   bg-amber-100/50 dark:bg-gray-700 text-amber-950 dark:text-gray-200
+                                   focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            v-model="password" 
+                            required 
+                            minlength="6" 
+                        />
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="confirmPassword" class="block mb-2 text-xl text-amber-950 dark:text-gray-300">
+                            Confirm Password
+                        </label>
+                        <input 
+                            type="password" 
+                            id="confirmPassword"
+                            class="w-full border border-amber-300 dark:border-gray-600 rounded-lg px-4 py-3 
+                                   bg-amber-100/50 dark:bg-gray-700 text-amber-950 dark:text-gray-200
+                                   focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            v-model="confirmPassword" 
+                            required 
+                            minlength="6" 
+                        />
+                    </div>
+
+                    <div class="mb-8">
+                        <label class="block mb-2 text-xl text-amber-950 dark:text-gray-300">
+                            Admin:
+                        </label>
+                        <select 
+                            v-model="admin" 
+                            class="w-full border border-amber-300 dark:border-gray-600 rounded-lg px-4 py-3 
+                                   bg-amber-100/50 dark:bg-gray-700 text-amber-950 dark:text-gray-200
+                                   focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            required
+                        >
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-4">
+                        <button 
+                            type="submit"
+                            class="rounded-lg bg-gradient-to-r from-amber-600 to-amber-950 dark:from-amber-700 dark:to-amber-900 
+                                   text-amber-100 px-6 py-3 text-xl hover:opacity-90 transition-all shadow-md
+                                   focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                        >
                             Register
                         </button>
 
-                        <button type="button"
-                            class="rounded-lg bg-gradient-to-r from-amber-950 to-amber-600 text-amber-100 p-4 cursor-pointer text-2xl hover:opacity-80"
-                            @click="sendToLogin">
+                        <button 
+                            type="button"
+                            class="rounded-lg bg-gradient-to-r from-amber-950 to-amber-600 dark:from-amber-900 dark:to-amber-700
+                                   text-amber-100 px-6 py-3 text-xl hover:opacity-90 transition-all shadow-md
+                                   focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                            @click="sendToLogin"
+                        >
                             Login
                         </button>
                     </div>
-
-                    <!-- <p class="mt-4 text-center text-red-600" v-if="errorMessage">{{ errorMessage }}</p>
-                    <p class="mt-4 text-center text-green-600" v-if="successMessage">{{ successMessage }}</p> -->
                 </div>
             </form>
         </div>
     </section>
 </template>
+
 <script setup>
-import { ref, } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+
 const store = useStore()
 const router = useRouter()
 const userName = ref('')
@@ -79,15 +134,11 @@ const password = ref('')
 const confirmPassword = ref('')
 const email = ref('')
 const admin = ref('')
-// const adminData = reactive({
-//     userName: userName.value,
-//     password: password.value,
-//     confirmPassword: confirmPassword.value,
-//     email: email.value,
-// })
-const sendToLogin=()=>{
+
+const sendToLogin = () => {
     router.push("/login")
 }
+
 const register = async () => {
     if (!userName.value || !email.value || !password.value || !confirmPassword.value) {
         alert("Please fill all required fields");
@@ -102,7 +153,7 @@ const register = async () => {
     }
     try {
         await store.dispatch("addUser", newUser);
-        alert(" User added successfully!");
+        alert("User added successfully!");
         router.push("/home/admin")
 
         userName.value = "";
@@ -114,34 +165,4 @@ const register = async () => {
         alert("Failed to add User");
     }
 }
-
-
-
-// const register = async () => {
-//     if (!userName.value || !email.value || !password.value || !confirmPassword.value) {
-//         alert("Please fill all required fields");
-//         return;
-//     }
-
-//     const newAdmin = {
-//         userName : userName.value,
-//         email : email.value,
-//         password : password.value,
-//         confirmPassword : confirmPassword.value
-//     }
-//     console.log(newAdmin,'newAdmin',userName.value);
-//     try {
-//         await axios.post("http://localhost:5000/admin", newAdmin)
-//         console.log(newAdmin)
-//         router.push("/admin")
-//         // Clear form
-//         userName.value = ''
-//         email.value = ''
-//         password.value = ''
-//         confirmPassword = ''
-//     } catch (error) {
-//         alert("Failed to register");
-//     }
-// }
-
 </script>
