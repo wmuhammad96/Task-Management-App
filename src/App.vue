@@ -1,21 +1,20 @@
 <template>
+  <div id="modal-container"></div>
   <div class="min-h-screen flex flex-col bg-amber-50 dark:bg-gray-800 transition-colors duration-300">
     <base-nav />
-    <main class="flex-1 p-4 md:p-6 overflow-x-hidden">
-      <div class="max-w-screen-2xl mx-auto w-full"> 
+    <main class="flex-1 overflow-x-hidden">
+      <div class="w-full">
         <router-view v-slot="{ Component, route }">
-          <transition 
-            :name="route.meta.transition || 'fade'" 
-            mode="out-in"
-          >
-            <component :is="Component" class="min-h-[calc(100vh-180px)]" /> 
+          <transition :name="route.meta.transition || 'fade'" mode="out-in">
+            <component :is="Component" class="min-h-[calc(100vh-180px)]" />
           </transition>
         </router-view>
       </div>
     </main>
-    
-    
-    <footer class="bg-gradient-to-r from-amber-600 to-amber-950 dark:from-gray-900 dark:to-gray-700 py-4 text-amber-100 dark:text-gray-300">
+
+
+    <footer
+      class="bg-gradient-to-r from-amber-600 to-amber-950 dark:from-gray-900 dark:to-gray-700 py-4 text-amber-100 dark:text-gray-300">
       <div class="container mx-auto px-4 text-center text-sm sm:text-base">
         © 2023 Task Manager. All rights reserved.
       </div>
@@ -24,19 +23,29 @@
 </template>
 
 <script setup>
-import { watch, onMounted } from 'vue'
+import { watch, onMounted, onUnmounted } from 'vue'
 import { useStore } from 'vuex'
 import { useTheme } from '@/composables/useTheme'
 
 const store = useStore()
 
+const updateDrawer = () => {
+  if (window.innerWidth <= 767) {
+    store.dispatch("setDrawer", store.state.drawer === 'mobileClose' ? "mobileClose" : "mobile")
+  } else {
+    store.dispatch("setDrawer", store.state.drawer === 'mini' ? "mini" : "desktop")
+  }
+}
 
 onMounted(() => {
-  
   document.documentElement.classList.toggle('dark', store.state.theme === 'dark')
-  
-  
-  document.documentElement.style.visibility = 'visible'
+  document.documentElement.style.visibility = 'visible';
+  updateDrawer() // run once when component mounts
+  window.addEventListener("resize", updateDrawer) // listen for resize
+})
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateDrawer) // cleanup
 })
 
 watch(
@@ -57,7 +66,6 @@ try {
 </script>
 
 <style>
-
 .fade-enter-active,
 .fade-leave-active,
 .slide-enter-active,
@@ -116,7 +124,10 @@ try {
 
 
 @media (max-width: 640px) {
-  [role="button"], button, a {
+
+  [role="button"],
+  button,
+  a {
     min-height: 48px;
     min-width: 48px;
   }
@@ -127,7 +138,7 @@ try {
   .no-print {
     display: none !important;
   }
-  
+
   body {
     background: white !important;
     color: black !important;

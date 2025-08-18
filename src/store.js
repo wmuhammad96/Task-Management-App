@@ -6,45 +6,46 @@ const store = createStore({
     return {
       theme: localStorage.getItem('theme') || 'light',
       tasks: [],
+      drawer: 'default',
       userData: [],
-       login : "Login",
-       projectTasks :{
-    "Development task": [
-        "Build login system",
-        "Fix API bugs",
-        "Implement search functionality"
-    ],
-    "Testing & Quality Assurance": [
-        "Write unit tests",
-        "Manual testing for checkout",
-        "Automated UI testing"
-    ],
-    "Project & Sprint Planning": [
-        "Backlog grooming",
-        "Sprint planning meeting",
-        "Requirement gathering"
-    ],
-    "Internal Projects": [
-        "Company Website Redesign",
-        "Internal HR Portal",
-        "Automation Tooling"
-    ],
-    "DevOps & Deployment": [
-        "Environment Setup",
-        "CI/CD Maintenance",
-        "Monitoring"
-    ],
-    "Documentation & Communication": [
-        "API Docs",
-        "User Guides",
-        "Meeting Notes"
-    ],
-}
+      login: "Login",
+      projectTasks: {
+        "Development task": [
+          "Build login system",
+          "Fix API bugs",
+          "Implement search functionality"
+        ],
+        "Testing & Quality Assurance": [
+          "Write unit tests",
+          "Manual testing for checkout",
+          "Automated UI testing"
+        ],
+        "Project & Sprint Planning": [
+          "Backlog grooming",
+          "Sprint planning meeting",
+          "Requirement gathering"
+        ],
+        "Internal Projects": [
+          "Company Website Redesign",
+          "Internal HR Portal",
+          "Automation Tooling"
+        ],
+        "DevOps & Deployment": [
+          "Environment Setup",
+          "CI/CD Maintenance",
+          "Monitoring"
+        ],
+        "Documentation & Communication": [
+          "API Docs",
+          "User Guides",
+          "Meeting Notes"
+        ],
+      }
     }
   },
-  
+
   getters: {
-    getProjectTasks (state){
+    getProjectTasks(state) {
       return state.projectTasks
     },
     getTask(state) {
@@ -53,10 +54,11 @@ const store = createStore({
     getUser(state) {
       return state.userData
     },
-    login(state){
+    login(state) {
       return state.login
     },
-    currentTheme: state => state.theme
+    currentTheme: state => state.theme,
+    getDrawer: state => state.drawer
   },
   mutations: {
     ADD_TASK(state, task) {
@@ -65,10 +67,10 @@ const store = createStore({
     ADD_USERS(state, user) {
       state.userData.push(user);
     },
-    LOGIN_TO_LOGOUT(state){
-      if(state.login === "Login"){
+    LOGIN_TO_LOGOUT(state) {
+      if (state.login === "Login") {
         state.login = "Logout"
-      }else{
+      } else {
         state.login = "Login"
       }
     },
@@ -96,6 +98,9 @@ const store = createStore({
     },
     SET_USER(state, userData) {
       state.userData = userData;
+    },
+    setDrawer(state, value) {
+      state.drawer = value;
     }
   },
   actions: {
@@ -112,7 +117,7 @@ const store = createStore({
         const response = await api.post(endpoints.tasks, newTask);
         // After successful post, add task to local state
         commit('ADD_TASK', response.data);
-        
+
       } catch (error) {
         console.error("Error adding task:", error);
         throw error;
@@ -127,34 +132,35 @@ const store = createStore({
         throw error;
       }
     },
-    async getUser ({commit}){
-    const response = await api.get(endpoints.userData)
-    commit("SET_USER", response.data)
-  
-},
-   async updateTaskOnServer({ commit }, updatedTask) {
-  try {
-    const response = await api.patch(`${endpoints.tasks}/${updatedTask.id}`, updatedTask);
-    commit('UPDATE_TASK', response.data);
-  } catch (error) {
-    console.error('Error updating task:', error);
-    throw error;
-  }
-},
+    async getUser({ commit }) {
+      const response = await api.get(endpoints.userData)
+      commit("SET_USER", response.data)
 
+    },
+    async updateTaskOnServer({ commit }, updatedTask) {
+      try {
+        const response = await api.patch(`${endpoints.tasks}/${updatedTask.id}`, updatedTask);
+        commit('UPDATE_TASK', response.data);
+      } catch (error) {
+        console.error('Error updating task:', error);
+        throw error;
+      }
+    },
     async getTask({ commit }) {
       const res = await api.get(endpoints.tasks)
       commit("SET_TASK", res.data)
     },
     async deleteTask({ commit }, id) {
-  try {
-    await api.delete(`${endpoints.tasks}/${id}`);
-    commit('DELETE_TASK', id);
-  } catch (error) {
-    alert('Failed to delete task', error);
-  }
-}
-  }
-
+      try {
+        await api.delete(`${endpoints.tasks}/${id}`);
+        commit('DELETE_TASK', id);
+      } catch (error) {
+        alert('Failed to delete task', error);
+      }
+    },
+    setDrawer({ commit }, value) {
+      commit("setDrawer", value)
+    },
+  },
 })
 export default store

@@ -1,5 +1,6 @@
 <template>
   <div class="p-4 sm:p-6 bg-amber-50 dark:bg-gray-800 transition overflow-x-auto">
+    <h1 class="text-4xl font-bold tracking-widest mb-4 text-black dark:text-white">Task List</h1>
     <div class="min-w-[600px] grid grid-cols-6 border border-amber-200 dark:border-gray-600
              bg-gradient-to-r from-amber-950 to-amber-600 dark:bg-gradient-to-r dark:from-gray-900 dark:to-gray-700 
              font-semibold">
