@@ -91,8 +91,8 @@ const login = async () => {
             return;
         }
 
-        localStorage.setItem('user', user);
-        localStorage.setItem('session', 'session_started');
+        localStorage.setItem('user', JSON.stringify(user));
+        store.commit('setSession', 'session_started')
         router.push("/")
     }
 }

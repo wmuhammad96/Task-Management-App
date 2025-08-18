@@ -6,7 +6,8 @@ const api = axios.create({
 
 export const endpoints = {
   tasks: import.meta.env.VITE_TASKS_ENDPOINT,
-  userData: import.meta.env.VITE_USERDATA_ENDPOINT
+  userData: import.meta.env.VITE_USERDATA_ENDPOINT,
+  projectTasks: import.meta.env.VITE_PROJECT_TASKS_ENDPOINT
 };
 
 export default api;

@@ -6,16 +6,16 @@
         'translate-x-[-100%]': drawerType === 'mobileClose',
         'translate-x-0': drawerType === 'mobile'
     }"
-        class="bg-amber-600 dark:bg-gray-900 h-[calc(100vh-108px)] z-50 transition-[width] duration-300 ease-in-out overflow-hidden">
+        class=" dark:bg-gradient-to-b dark:from-gray-700 dark:via-gray-900 dark:to-gray-700  bg-gradient-to-b from-amber-600  via-amber-800 to-amber-600   h-[calc(100vh-108px)] z-50 transition-[width] duration-300 ease-in-out overflow-hidden">
         <ul class="list-none flex flex-col items-start justify-center gap-5 p-4" :class="{
             'gap-10': drawerType === 'mini'
         }">
             <li v-for="menu in drawerMenu" :key="menu.route" @click="handleNavigation(menu.route)"
                 class="flex items-center gap-3 cursor-pointer">
-                <i :class="menu.icon" class="text-lg text-white"></i>
+                <i :class="menu.icon" class="text-lg text-amber-100 dark:text-gray-300"></i>
                 <span :class="{
                     'hidden': drawerType === 'mini', 'transition-opacity duration-300': true
-                }" class="text-white font-semibold">{{ menu.title }}</span>
+                }" class="text-amber-100 dark:text-gray-300 font-semibold">{{ menu.title }}</span>
             </li>
         </ul>
     </div>

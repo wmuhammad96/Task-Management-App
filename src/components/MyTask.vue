@@ -4,31 +4,43 @@
     <div class="min-w-[600px] grid grid-cols-6 border border-gray-300 
              bg-gradient-to-r from-amber-950 to-amber-600 dark:bg-gradient-to-r dark:from-gray-900 dark:to-gray-700 
              font-semibold">
-      <div class="px-2 sm:px-4 py-2 border border-gray-300 text-amber-100 dark:text-gray-300 text-center text-sm sm:text-base">Project</div>
+              <div v-for="header in staticHeaders" :key="header"
+      class="px-2 sm:px-4 py-2 border border-gray-300 dark:border-gray-500 
+             text-amber-100 dark:text-gray-300 text-center text-sm sm:text-base">
+      {{ header }}
+    </div>
+
+    <!-- Conditional Columns -->
+    <div v-for="header in conditionalHeaders" :key="header"
+      class="px-2 sm:px-4 py-2 border border-gray-300 dark:border-gray-500 
+             text-amber-100 dark:text-gray-300 text-center text-sm sm:text-base">
+      {{ header }}
+    </div>
+      <!-- <div class="px-2 sm:px-4 py-2 border border-gray-300 text-amber-100 dark:text-gray-300 text-center text-sm sm:text-base">Project</div>
       <div class="px-2 sm:px-4 py-2 border border-gray-300 text-amber-100 dark:text-gray-300 text-center text-sm sm:text-base">Task</div>
       <div class="px-2 sm:px-4 py-2 border border-gray-300 text-amber-100 dark:text-gray-300 text-center text-sm sm:text-base">Status</div>
       <div class="px-2 sm:px-4 py-2 border border-gray-300 text-amber-100 dark:text-gray-300 text-center text-sm sm:text-base">User</div>
       <div class="px-2 sm:px-4 py-2 border border-gray-300 text-center text-amber-100 dark:text-gray-300 text-sm sm:text-base" v-if="isAdmin">Edit</div>
       <div class="px-2 sm:px-4 py-2 border border-gray-300 text-center text-amber-100 dark:text-gray-300 text-sm sm:text-base" v-else>Priority</div>
       <div class="px-2 sm:px-4 py-2 border border-gray-300 text-center text-amber-100 dark:text-gray-300 text-sm sm:text-base" v-if="isAdmin">Delete</div>
-      <div class="px-2 sm:px-4 py-2 border border-gray-300 text-center text-amber-100 dark:text-gray-300 text-sm sm:text-base" v-else>Desc</div>
+      <div class="px-2 sm:px-4 py-2 border border-gray-300 text-center text-amber-100 dark:text-gray-300 text-sm sm:text-base" v-else>Desc</div> -->
     </div>
 
    
     <div class="min-w-[600px]">
       <div v-for="task in showTaskUponUser" :key="task.id" class="grid grid-cols-6 border border-amber-200 dark:border-gray-600 
                bg-amber-100 dark:bg-gray-700 text-amber-900 dark:text-gray-200">
-        <div class="px-2 sm:px-4 py-2 border border-amber-300 dark:border-gray-600 text-center text-sm sm:text-base truncate">{{ task.projects }}</div>
-        <div class="px-2 sm:px-4 py-2 border border-amber-300 dark:border-gray-600 text-center text-sm sm:text-base truncate">{{ task.task }}</div>
-        <div class="px-2 sm:px-4 py-2 border border-amber-300 dark:border-gray-600 text-center text-sm sm:text-base truncate">{{ task.status }}</div>
-        <div class="px-2 sm:px-4 py-2 border border-amber-300 dark:border-gray-600 text-center text-sm sm:text-base truncate">{{ task.user }}</div>
+        <div class="px-2 md:break-words max-w-[250px] sm:px-4 py-2 border border-amber-300 dark:border-gray-600 text-center text-sm sm:text-base truncate">{{ task.projects }}</div>
+        <div class="px-2 break-words max-w-[250px] sm:px-4 py-2 border  border-amber-300 dark:border-gray-600 text-center text-sm sm:text-base truncate">{{ task.task }}</div>
+        <div class="px-2 break-words max-w-[250px] sm:px-4 py-2 border border-amber-300 dark:border-gray-600 text-center text-sm sm:text-base truncate">{{ task.status }}</div>
+        <div class="px-2 sm:px-4 py-2 border border-amber-300 break-words max-w-[250px] dark:border-gray-600 text-center text-sm sm:text-base truncate">{{ task.user }}</div>
 
         <div class="px-2 sm:px-4 py-2 border border-amber-300 dark:border-gray-600 text-center">
           <button v-if="isAdmin" @click="openEditModal(task)"
             class="text-blue-500 dark:text-blue-400 hover:opacity-80 transition cursor-pointer text-sm sm:text-base">
             ✏️
           </button>
-          <span v-else class="text-sm sm:text-base truncate">{{ task.priorities }}</span>
+          <span v-else class="break-words max-w-[250px] px-2 py-2  text-center text-sm sm:text-base">{{ task.priorities }}</span>
         </div>
 
         <div class="px-2 sm:px-4 py-2 border border-amber-300 dark:border-gray-600 text-center">
@@ -36,7 +48,7 @@
             class="text-red-500 dark:text-red-400 hover:opacity-80 transition cursor-pointer text-sm sm:text-base">
             🗑️
           </button>
-          <span v-else class="text-sm sm:text-base truncate">{{ task.description }}</span>
+          <span v-else class="break-words max-w-[250px] px-2 py-2  text-center text-sm sm:text-base">{{ task.description }}</span>
         </div>
       </div>
     </div>
@@ -99,7 +111,8 @@ const getTask = computed(() => store.getters.getTask)
 const projectTasks = computed(() => store.getters.getProjectTasks)
 const projectOptions = computed(() => Object.keys(projectTasks.value || {}))
 
-const logedUser = computed(() => sessionStorage.getItem('user'))
+
+const logedUser = computed(() => localStorage.getItem('user'))
 const isAdmin = computed(() => JSON.parse(logedUser.value || 'null')?.admin === 'Yes')
 
 const showTaskUponUser = computed(() => {
@@ -111,6 +124,10 @@ const showModal = ref(false)
 const editData = ref({})
 const selectedProject = ref('')
 const selectedTask = ref('')
+const staticHeaders = ["Project", "Task", "Status", "User"]
+const conditionalHeaders = computed(() =>
+  isAdmin.value ? ["Edit", "Delete"] : ["Priority", "Desc"]
+)
 
 const taskOptions = computed(() => {
   return selectedProject.value ? (projectTasks.value[selectedProject.value] || []) : []

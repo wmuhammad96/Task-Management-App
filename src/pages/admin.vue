@@ -51,15 +51,9 @@
                     required
                 >
                     <option disabled value="">Select a project</option>
-                    <option value="Development task">Development task</option>
-                    <option value="Testing & Quality Assurance">Testing & Quality Assurance</option>
-                    <option value="Project & Sprint Planning">Project & Sprint Planning</option>
-                    <option value="Internal Projects">Internal Projects</option>
-                    <option value="DevOps & Deployment">DevOps & Deployment</option>
-                    <option value="Documentation & Communication">Documentation & Communication</option>
+                    <option  v-for="key in taskKeys" :key="key" :value="key">{{key}}</option>
                 </select>
             </div>
-
             
             <div class="space-y-2">
                 <label class="block text-sm sm:text-base text-amber-900 dark:text-gray-300 font-medium">
@@ -146,14 +140,22 @@ const projects = ref('');
 const description = ref('');
 const priorities = ref('');
 const usersToList = ref([]);
+const taskKeys = computed(() => {
+    return Object.keys(store.getters.getProjectTasks || {});
+});
 
 onMounted(async () => {
     const response = await api.get(endpoints.userData);
     usersToList.value = await response.data;
+      await store.dispatch('getProjectTasks');
+      taskKeys.value = Object.keys(store.getters.getProjectTasks)
 });
 
 const filteredTasks = computed(() => {
     return store.getters.getProjectTasks[projects.value] || [];
+});
+const projectsToList = computed(() => {
+    return store.getters.getProjectTasks|| {};
 });
 
 const addNewTask = async () => {
