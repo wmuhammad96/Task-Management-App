@@ -1,10 +1,11 @@
 <template>
     <div class="p-4 sm:p-6 max-w-md mx-auto bg-amber-50 dark:bg-gray-800 rounded-lg shadow-md transition">
-        <h2 class="text-lg sm:text-xl font-bold mb-4 bg-gradient-to-r from-amber-600 to-amber-950 dark:from-amber-700 dark:to-amber-900 bg-clip-text text-transparent">
-            Assign / Update Task
+        <h2 class="text-4xl font-bold tracking-widest mb-4 text-amber-950 dark:text-gray-300">
+            Assign Task
         </h2>
+        
         <form @submit.prevent="addNewTask" class="space-y-4">
-            
+            <div>
             <div class="space-y-2">
                 <label class="block text-sm sm:text-base text-amber-900 dark:text-gray-300 font-medium">
                     Users:
@@ -120,6 +121,7 @@
             >
                 Assign Task
             </button>
+            </div>
         </form>
     </div>
 </template>

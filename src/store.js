@@ -63,6 +63,12 @@ const store = createStore({
     getDrawer: state => state.drawer
   },
   mutations: {
+    updateTaskStatus(state, updatedTask) {
+    const index = state.tasks.findIndex(t => t.id === updatedTask.id)
+    if (index !== -1) {
+      state.tasks[index].status = updatedTask.status
+    }
+  },
     ADD_TASK(state, task) {
       state.tasks.push(task);
     },
@@ -113,6 +119,11 @@ const store = createStore({
     }
   },
   actions: {
+    async updateStatusOnServer({ commit }, { id, status }) {
+    // update only status on backend
+    const response = await api.patch(`${endpoints.tasks}/${id}`, { status })
+    commit("updateTaskStatus", response.data) 
+  },
     toggleTheme({ commit, state }) {
       const newTheme = state.theme === 'light' ? 'dark' : 'light'
       commit('SET_THEME', newTheme)

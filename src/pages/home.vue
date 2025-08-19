@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue"
+import { ref,} from "vue"
 import { useRouter } from "vue-router"
 import SideBar from "../components/SideBar.vue"
 import Modal from "@/components/Modal.vue"

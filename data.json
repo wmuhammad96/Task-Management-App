@@ -2,7 +2,7 @@
   "tasks": [
     {
       "id": "2f0f",
-      "status": "In Progress",
+      "status": "Pending",
       "user": "3ca5",
       "task": "Fix API bugs",
       "projects": "Development task",
@@ -20,7 +20,7 @@
     },
     {
       "id": "5336",
-      "status": "pending",
+      "status": "Pending",
       "user": "3ca5",
       "task": "Build login system",
       "projects": "Development task",
@@ -29,7 +29,7 @@
     },
     {
       "id": "d31d",
-      "status": "in progress",
+      "status": "Pending",
       "user": "3ca5",
       "task": "Build login system",
       "projects": "Development task",
@@ -83,12 +83,30 @@
     },
     {
       "id": "8e85",
-      "status": "pending",
+      "status": "Pending",
       "user": "3ca5",
       "task": "Build login system",
       "projects": "Development task",
       "priorities": "Urgent Delivery",
       "description": "asfdsdgdshsfd"
+    },
+    {
+      "id": "c8c8",
+      "status": "in progress",
+      "user": "b40e",
+      "task": "Write unit tests",
+      "projects": "Testing & Quality Assurance",
+      "priorities": "Normal delivery",
+      "description": "dsakjfbkjsakfS"
+    },
+    {
+      "id": "b418",
+      "status": "Pending",
+      "user": "9352",
+      "task": "CI/CD Maintenance",
+      "projects": "DevOps & Deployment",
+      "priorities": "Urgent Delivery",
+      "description": "lanfljsadfkjlsaka"
     }
   ],
   "userData": [
@@ -178,6 +196,27 @@
       "email": "abdullah@gmail.com",
       "password": "123456",
       "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "ca5d",
+      "name": "zubair",
+      "email": "zubair@gmail.com",
+      "password": "123456",
+      "admin": "Yes"
+    },
+    {
+      "id": "f0fc",
+      "name": "shoaib",
+      "email": "shoaib@gmail.com",
+      "password": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "735e",
+      "name": "zaid",
+      "email": "ziad@gmail.com",
+      "password": "123456",
       "admin": "No"
     }
   ],

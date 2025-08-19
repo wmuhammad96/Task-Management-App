@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 sm:p-6 bg-amber-50 dark:bg-gray-800 transition overflow-x-auto">
+  <div class="p-4 sm:p-6 bg-amber-50 dark:bg-gray-800  overflow-x-auto task-card transform transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.5)]">
     <h1 class="text-4xl font-bold tracking-widest mb-4 text-amber-950 dark:text-gray-300">Task List</h1>
     <div class="min-w-[600px] grid grid-cols-6 border border-amber-200 dark:border-gray-600
              bg-gradient-to-r from-amber-950 to-amber-600 dark:bg-gradient-to-r dark:from-gray-900 dark:to-gray-700 
@@ -27,7 +27,13 @@
           {{ task.task }}
         </div>
         <div
-          class="px-2 sm:px-4 py-2 border border-amber-800 dark:border-gray-500 text-center text-sm sm:text-base truncate">
+          class="px-2 sm:px-4 py-2 border border-amber-800 dark:border-gray-500 text-center text-sm sm:text-base truncate"
+          :class="[
+            'px-3 py-1 rounded-2xl text-xs font-medium transition',
+            task.status === 'Pending' ? 'bg-yellow-200 text-yellow-800 animate-pulse' :
+              task.status === 'In Progress' ? 'bg-blue-200 text-blue-800' :
+                'bg-green-200 text-green-800'
+          ]">
           {{ task.status }}
         </div>
         <div
@@ -37,18 +43,22 @@
 
         <div class="px-2 sm:px-4 py-2 border border-amber-800 dark:border-gray-500 text-center">
           <button v-if="isAdmin" @click="openEditModal(task)"
-            class="text-blue-500 dark:text-blue-400 hover:opacity-80 transition cursor-pointer text-sm sm:text-base">
+            class="text-blue-500 dark:text-blue-400 hover:opacity-80 transition transform
+                     hover:scale-105  active:scale-95 cursor-pointer text-sm sm:text-base">
             <i :class="icon" class="text-lg text-amber-900 dark:text-gray-300"></i>
           </button>
-          <span v-else class="break-words max-w-[250px] px-2 py-2  text-center text-sm sm:text-base">{{ task.priorities }}</span>
+          <span v-else class="break-words max-w-[250px] px-2 py-2  text-center text-sm sm:text-base">{{ task.priorities
+          }}</span>
         </div>
 
         <div class="px-2 sm:px-4 py-2 border border-amber-800 dark:border-gray-500 text-center">
           <button v-if="isAdmin" @click="deleteTask(task.id)"
-            class="text-red-500 dark:text-red-400 hover:opacity-80 transition cursor-pointer text-sm sm:text-base">
+            class="text-red-500 dark:text-red-400  transition transform
+                     hover:scale-105  active:scale-95 cursor-pointer text-sm sm:text-base">
             <i :class="iconForDelete" class="text-lg text-amber-900 dark:text-gray-300"></i>
           </button>
-          <span v-else class="break-words max-w-[250px] px-2 py-2  text-center text-sm sm:text-base">{{ task.description }}</span>
+          <span v-else class="break-words max-w-[250px] px-2 py-2  text-center text-sm sm:text-base">{{ task.description
+          }}</span>
         </div>
       </div>
     </div>
@@ -105,7 +115,6 @@
 <script setup>
 import { useStore } from 'vuex'
 import { computed, ref, onMounted, watch, reactive } from 'vue'
-
 const store = useStore()
 
 const getTask = computed(() => store.getters.getTask)
