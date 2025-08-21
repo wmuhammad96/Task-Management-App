@@ -218,6 +218,13 @@
       "email": "ziad@gmail.com",
       "password": "123456",
       "admin": "No"
+    },
+    {
+      "id": "8e4f",
+      "name": "some12",
+      "email": "some@gmail.com",
+      "password": "asdfgh",
+      "admin": "No"
     }
   ],
   "projectTasks": {

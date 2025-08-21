@@ -10,7 +10,7 @@
 
 
             <div class="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8 order-2">
-                <form @submit.prevent="register"
+                <form @submit.prevent="register" @keyup.enter="register"
                     class="w-full max-w-md p-6 sm:p-8 rounded-xl backdrop-blur-sm bg-amber-50/80 dark:bg-gray-800/80 shadow-[0_0_15px_rgba(101,67,33,0.7),0_0_40px_rgba(0,0,180,0.4)]  dark:shadow-[0_0_15px_rgba(255,200,0,0.4)]">
                     <h2
                         class="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 text-center text-amber-950 dark:text-gray-300">
@@ -103,6 +103,9 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import { useToast } from "@/composables/useToast";
+
+const toast = useToast()
 
 const store = useStore()
 const router = useRouter()
@@ -118,10 +121,10 @@ const sendToLogin = () => {
 
 const register = async () => {
     if (!userName.value || !email.value || !password.value) {
-        alert("Please fill all required fields");
+        toast.error("Please fill all required fields")
         return;
     } else if (confirmPassword.value !== password.value) {
-        alert("Please make sure your password match with confirm passward");
+        toast.warning("Passwords do not match ❌")
         return 
     }
     const newUser = {
@@ -132,6 +135,7 @@ const register = async () => {
     }
     try {
         await store.dispatch("addUser", newUser);
+         toast.success("User registered successfully 🎉")
         router.push("/home/admin")
 
         userName.value = "";
@@ -140,7 +144,7 @@ const register = async () => {
         confirmPassword.value = ""
         admin.value = ""
     } catch (error) {
-        alert("Failed to add User");
+         toast.error("Failed to add User 🚨")
     }
 }
 </script>

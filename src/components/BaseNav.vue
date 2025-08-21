@@ -40,13 +40,7 @@
             </button>
 
         </div>
-        <transition name="toast" appear>
-            <div v-if="showToast" class="fixed top-5 right-5 z-50 bg-amber-600 text-amber-100 px-6 py-3 rounded-lg shadow-lg
-                border border-amber-400 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 
-                animate-slide-in-fade">
-                {{ toastMessage }}
-            </div>
-        </transition>
+       
     </section>
 </template>
 
@@ -54,16 +48,15 @@
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { computed, nextTick, onMounted, ref } from 'vue'
+import { useToast } from '../composables/useToast.js'
 
-
+const toast = useToast()
 const router = useRouter()
 const store = useStore()
 const mobileMenuOpen = ref(false)
 const isDark = ref(false)
 const currentTheme = computed(() => store.getters.currentTheme)
 const session = computed(() => store.state.session)
-const showToast = ref(false)
-const toastMessage = ref('')
 const fullText = "Task Management";
 const displayedText = ref("");
 const showCursor = ref(true);
@@ -98,14 +91,7 @@ const handleDrawerToggle = () => {
 const logout = () => {
     const user = JSON.parse(localStorage.getItem('user')) || {}
     const name = user.name || 'User'
-    toastMessage.value = `Goodbye, ${name}! 👋`
-    showToast.value = true
-    setTimeout(() => {
-        showToast.value = false
-        localStorage.setItem('user', null)
-        store.commit('setSession', 'session_ended')
-        router.push('/login')
-    }, 3000)
+    toast.success( `Goodbye, ${name}! 👋`)
     localStorage.setItem('user', null);
     store.commit('setSession', 'session_ended')
     router.push('/login')
@@ -136,26 +122,6 @@ onMounted(() => {
 
 </script>
 <style scoped>
-.toast-enter-active,
-.toast-leave-active {
-    transition: all 0.6s ease;
-}
-
-.toast-enter-from,
-.toast-leave-to {
-    opacity: 0;
-    transform: translateX(50px);
-}
-
-.toast-enter-to,
-.toast-leave-from {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.animate-slide-in-fade {
-    animation: slideInFade 0.6s forwards;
-}
 
 @keyframes slideInFade {
     0% {

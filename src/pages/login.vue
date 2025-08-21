@@ -25,7 +25,7 @@
                     <div class="mb-6 sm:mb-8">
                         <label for="password"
                             class="block mb-2 text-lg sm:text-xl text-amber-950 dark:text-gray-300">Password</label>
-                        <input type="password" v-model="password" id="password" class="w-full border border-amber-300 dark:border-gray-600 rounded-lg px-4 py-2 sm:py-3
+                        <input type="password" v-model="password" @keyup.enter="login" id="password" class="w-full border border-amber-300 dark:border-gray-600 rounded-lg px-4 py-2 sm:py-3
                      bg-amber-100/50 dark:bg-gray-700 text-amber-950 dark:text-gray-200
                      focus:outline-none focus:ring-2 focus:ring-amber-500" required>
                     </div>

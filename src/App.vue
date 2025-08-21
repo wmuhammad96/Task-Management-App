@@ -9,6 +9,7 @@
             <component :is="Component" class="min-h-[calc(100vh-180px)]" />
           </transition>
         </router-view>
+         <BaseToast />
       </div>
     </main>
 
@@ -26,6 +27,7 @@
 import { watch, onMounted, onUnmounted } from 'vue'
 import { useStore } from 'vuex'
 import { useTheme } from '@/composables/useTheme'
+import BaseToast from "@/components/BaseToast.vue";
 
 const store = useStore()
 
