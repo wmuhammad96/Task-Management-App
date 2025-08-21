@@ -46,6 +46,8 @@ const drawerMenu = reactive([
   { route: '/home/users', title: 'Users', icon: 'pi pi-users' },
   { route: '/home/admin', title: 'Admin Panel', icon: 'pi pi-wrench' },
   { route: '/home/mytask', title: 'My Task', icon: 'pi pi-briefcase' },
+  { route: '/home/CreateProject', title: 'Create Project', icon: 'pi pi-folder-plus' },
+  { route: '/home/CreateTask', title: 'Create Task', icon: 'pi pi-file-plus' },
 ])
 
 const drawerClasses = computed(() => {

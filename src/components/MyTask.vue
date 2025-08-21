@@ -32,10 +32,10 @@
         <div
           class="px-2 break-words max-w-[250px] sm:px-4 py-2 border grid border-amber-300 dark:border-gray-600 text-center text-sm sm:text-base truncate"
           :class="[
-            'px-3 py-1 rounded-2xl text-xs font-medium transition',
-            task.status === 'Pending' ? 'bg-yellow-200 text-yellow-800 animate-pulse' :
-              task.status === 'In Progress' ? 'bg-blue-200 text-blue-800' :
-                'bg-green-200 text-green-800'
+            'px-3 py-4 rounded-2xl text-xs font-medium transition',
+            task.status === 'Pending' ? ' text-yellow-800 animate-pulse' :
+              task.status === 'In Progress' ? ' text-blue-800' :
+                ' text-green-800'
           ]">
           {{ task.status }}
           <button type="button" @click="updateStatus(task)" class="border rounded-2xl cursor-pointer "> edit </button>

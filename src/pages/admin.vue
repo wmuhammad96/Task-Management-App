@@ -117,7 +117,7 @@
                 type="submit"
                 class="mt-6 px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-950 dark:from-amber-700 dark:to-amber-900 
                        text-amber-100 dark:text-gray-300 rounded-lg hover:opacity-90 transition shadow-md w-full
-                       focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                       focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 cursor-pointer hover:scale-105"
             >
                 Assign Task
             </button>
@@ -131,9 +131,11 @@ import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import api, { endpoints } from '../../axios_api.js'
+import { useToast } from '../composables/useToast.js';
 
 const store = useStore();
 const router = useRouter();
+const toast = useToast()
 
 const user = ref('');
 const status = ref('');
@@ -156,13 +158,13 @@ onMounted(async () => {
 const filteredTasks = computed(() => {
     return store.getters.getProjectTasks[projects.value] || [];
 });
-const projectsToList = computed(() => {
-    return store.getters.getProjectTasks|| {};
-});
+// const projectsToList = computed(() => {
+//     return store.getters.getProjectTasks|| {};
+// });
 
 const addNewTask = async () => {
     if (!task.value || !user.value || !projects.value) {
-        alert("Please fill all required fields");
+        toast.info("Please fill all required fields");
         return;
     }
     const newTask = {
@@ -175,7 +177,7 @@ const addNewTask = async () => {
     };
     try {
         await store.dispatch("addTask", newTask);
-        alert("Task added successfully!");
+        toast.success("Task added successfully!");
         router.push("/home/tasklist");
         task.value = "";
         status.value = "";
@@ -184,7 +186,7 @@ const addNewTask = async () => {
         description.value = "";
         priorities.value = "";
     } catch (error) {
-        alert("Failed to add task");
+        toast.error("Failed to add task");
     }
 };
 </script>

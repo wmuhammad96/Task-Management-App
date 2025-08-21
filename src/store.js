@@ -11,38 +11,6 @@ const store = createStore({
       session: localStorage.getItem('session') || 'session_ended',
       login: "Login",
       projectTasks:{}
-      //  {
-      //   "Development task": [
-      //     "Build login system",
-      //     "Fix API bugs",
-      //     "Implement search functionality"
-      //   ],
-      //   "Testing & Quality Assurance": [
-      //     "Write unit tests",
-      //     "Manual testing for checkout",
-      //     "Automated UI testing"
-      //   ],
-      //   "Project & Sprint Planning": [
-      //     "Backlog grooming",
-      //     "Sprint planning meeting",
-      //     "Requirement gathering"
-      //   ],
-      //   "Internal Projects": [
-      //     "Company Website Redesign",
-      //     "Internal HR Portal",
-      //     "Automation Tooling"
-      //   ],
-      //   "DevOps & Deployment": [
-      //     "Environment Setup",
-      //     "CI/CD Maintenance",
-      //     "Monitoring"
-      //   ],
-      //   "Documentation & Communication": [
-      //     "API Docs",
-      //     "User Guides",
-      //     "Meeting Notes"
-      //   ],
-      // }
     }
   },
 
