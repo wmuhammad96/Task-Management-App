@@ -1,0 +1,262 @@
+{
+  "tasks": [
+    {
+      "id": "2f0f",
+      "status": "Pending",
+      "user": "3ca5",
+      "task": "Fix API bugs",
+      "projects": "Development task",
+      "priorities": "Normal delivery",
+      "description": "need to complete task"
+    },
+    {
+      "id": "b7d2",
+      "status": "pending",
+      "user": "6b78",
+      "task": "Environment Setup",
+      "projects": "DevOps & Deployment",
+      "priorities": "First Priority",
+      "description": "we need to deliver it tomorow"
+    },
+    {
+      "id": "5336",
+      "status": "Pending",
+      "user": "3ca5",
+      "task": "Build login system",
+      "projects": "Development task",
+      "priorities": "Urgent Delivery",
+      "description": "something"
+    },
+    {
+      "id": "d31d",
+      "status": "Pending",
+      "user": "3ca5",
+      "task": "Build login system",
+      "projects": "Development task",
+      "priorities": "Urgent Delivery",
+      "description": "do it urgent "
+    },
+    {
+      "id": "ea37",
+      "status": "pending",
+      "user": "fb28",
+      "task": "Company Website Redesign",
+      "projects": "Internal Projects",
+      "priorities": "Normal delivery",
+      "description": "this is not urgent "
+    },
+    {
+      "id": "a4a6",
+      "status": "in progress",
+      "user": "b40e",
+      "task": "Fix API bugs",
+      "projects": "Development task",
+      "priorities": "Normal delivery",
+      "description": "hello"
+    },
+    {
+      "id": "74c6",
+      "status": "pending",
+      "user": "cea7",
+      "task": "Monitoring",
+      "projects": "DevOps & Deployment",
+      "priorities": "Urgent Delivery",
+      "description": "asfsafaaagaga"
+    },
+    {
+      "id": "9740",
+      "status": "in progress",
+      "user": "c6d6",
+      "task": "Implement search functionality",
+      "projects": "Development task",
+      "priorities": "First Priority",
+      "description": "asdfdsgfdshfdhsfd"
+    },
+    {
+      "id": "4972",
+      "status": "in progress",
+      "user": "80e4",
+      "task": "Build login system",
+      "projects": "Development task",
+      "priorities": "Normal delivery",
+      "description": "here is another task"
+    },
+    {
+      "id": "8e85",
+      "status": "Pending",
+      "user": "3ca5",
+      "task": "Build login system",
+      "projects": "Development task",
+      "priorities": "Urgent Delivery",
+      "description": "asfdsdgdshsfd"
+    },
+    {
+      "id": "c8c8",
+      "status": "in progress",
+      "user": "b40e",
+      "task": "Write unit tests",
+      "projects": "Testing & Quality Assurance",
+      "priorities": "Normal delivery",
+      "description": "dsakjfbkjsakfS"
+    },
+    {
+      "id": "b418",
+      "status": "Pending",
+      "user": "9352",
+      "task": "CI/CD Maintenance",
+      "projects": "DevOps & Deployment",
+      "priorities": "Urgent Delivery",
+      "description": "lanfljsadfkjlsaka"
+    }
+  ],
+  "userData": [
+    {
+      "id": "9352",
+      "name": "test1",
+      "email": "pk@nisum.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "Yes"
+    },
+    {
+      "id": "3ca5",
+      "name": "walimohammad96",
+      "email": "wali@gmail.com",
+      "password": "asdfgh",
+      "confirmPassword": "asdfgh",
+      "admin": "No"
+    },
+    {
+      "id": "fb28",
+      "name": "faizan",
+      "email": "faizan@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "b40e",
+      "name": "muneeb",
+      "email": "muneeb@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "cea7",
+      "name": "rehan",
+      "email": "rehan@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "dc48",
+      "name": "rehan",
+      "email": "rehan@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "5679",
+      "name": "rehan",
+      "email": "rehan@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "80e4",
+      "name": "moiz",
+      "email": "moiz@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "c6d6",
+      "name": "bilal",
+      "email": "bilal@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "4398",
+      "name": "farrukh",
+      "email": "farrukh@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "6b78",
+      "name": "abdullah",
+      "email": "abdullah@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "ca5d",
+      "name": "zubair",
+      "email": "zubair@gmail.com",
+      "password": "123456",
+      "admin": "Yes"
+    },
+    {
+      "id": "f0fc",
+      "name": "shoaib",
+      "email": "shoaib@gmail.com",
+      "password": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "735e",
+      "name": "zaid",
+      "email": "ziad@gmail.com",
+      "password": "123456",
+      "admin": "No"
+    },
+    {
+      "id": "8e4f",
+      "name": "some12",
+      "email": "some@gmail.com",
+      "password": "asdfgh",
+      "admin": "No"
+    }
+  ],
+  "projectTasks": {
+    "Development task": [
+      "Build login system",
+      "Fix API bugs",
+      "Implement search functionality"
+    ],
+    "Testing & Quality Assurance": [
+      "Write unit tests",
+      "Manual testing for checkout",
+      "Automated UI testing"
+    ],
+    "Project & Sprint Planning": [
+      "Backlog grooming",
+      "Sprint planning meeting",
+      "Requirement gathering"
+    ],
+    "Internal Projects": [
+      "Company Website Redesign",
+      "Internal HR Portal",
+      "Automation Tooling"
+    ],
+    "DevOps & Deployment": [
+      "Environment Setup",
+      "CI/CD Maintenance",
+      "Monitoring"
+    ],
+    "Documentation & Communication": [
+      "API Docs",
+      "User Guides",
+      "Meeting Notes"
+    ]
+  }
+}
