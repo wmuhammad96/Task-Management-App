@@ -48,8 +48,10 @@
 import { useStore } from 'vuex'
 import { computed, onMounted, ref } from 'vue'
 import api, { endpoints } from "../../axios_api.js"
+import {useToast} from "../composables/useToast.js"
 
 const store = useStore()
+const toast = useToast()
 
 const projects = ref("")
 const taskName = ref("")
@@ -66,27 +68,28 @@ const addTasks = async () => {
   if (!projects.value || !taskName.value) return
 
   try {
-    // 1. Get current tasks for that project
+    
     const res = await api.get(endpoints.projectTasks)
     const current = res.data
 
     const projectArray = current[projects.value] || []
 
-    // 2. Add new task into selected project
+    
     const updated = {
       ...current,
       [projects.value]: [...projectArray, taskName.value]
     }
 
-    // 3. Save back with PUT (replace whole object)
+    
     const updateRes = await api.put(endpoints.projectTasks, updated)
 
-    console.log("Updated projectTasks:", updateRes.data)
+    
 
-    // 4. Update vuex store
+    
     await store.dispatch("getProjectTasks")
+    toast.success("Task added successfully")
 
-    // 5. Reset form
+    
     taskName.value = ""
     projects.value = ""
 

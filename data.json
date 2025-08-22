@@ -20,7 +20,7 @@
     },
     {
       "id": "5336",
-      "status": "Pending",
+      "status": "Completed",
       "user": "3ca5",
       "task": "Build login system",
       "projects": "Development task",
@@ -101,7 +101,7 @@
     },
     {
       "id": "b418",
-      "status": "Completed",
+      "status": "Pending",
       "user": "9352",
       "task": "CI/CD Maintenance",
       "projects": "DevOps & Deployment",
@@ -116,6 +116,15 @@
       "projects": "Development task",
       "priorities": "First Priority",
       "description": "another task"
+    },
+    {
+      "id": "ab9f",
+      "status": "in progress",
+      "user": "fb28",
+      "task": "naya tasj",
+      "projects": "naya project",
+      "priorities": "Normal delivery",
+      "description": "dafds"
     }
   ],
   "userData": [
@@ -268,7 +277,15 @@
       "Meeting Notes"
     ],
     "WSI": [
-      "E commers"
+      "E commers",
+      "CMS",
+      "Review PR"
+    ],
+    "AI-powered chatbot": [
+      "writing and debugging code,"
+    ],
+    "naya project": [
+      "naya tasj"
     ]
   }
 }

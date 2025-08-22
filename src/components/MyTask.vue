@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 sm:p-6 bg-amber-50 dark:bg-gray-800 text-amber-900 dark:text-gray-200  overflow-x-auto task-card transform transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.5)]">
+  <div class="p-4 sm:p-6 bg-amber-50 dark:bg-gray-800 text-amber-900 dark:text-gray-200  overflow-x-auto ">
     <div>
       <h2 class="text-4xl font-bold tracking-widest mb-4 text-amber-950 dark:text-gray-300">My Task</h2>
     </div>

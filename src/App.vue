@@ -1,6 +1,6 @@
 <template>
   <div id="modal-container"></div>
-  <div class="min-h-screen flex flex-col bg-amber-100 dark:bg-gray-800 transition-colors duration-300">
+  <div class="min-h-screen flex flex-col bg-amber-50 dark:bg-gray-800 transition-colors duration-300">
     <base-nav />
     <main class="flex-1 overflow-x-hidden">
       <div class="w-full">
@@ -15,7 +15,7 @@
 
 
     <footer
-      class="bg-gradient-to-r from-amber-600 to-amber-950 dark:from-gray-900 dark:to-gray-700 py-4 text-amber-100 dark:text-gray-300">
+      class="bg-gradient-to-r from-amber-950 to-amber-600 dark:from-gray-900 dark:to-gray-700 py-4 text-amber-100 dark:text-gray-300">
       <div class="container mx-auto px-4 text-center text-sm sm:text-base shadow-[0_0_15px_rgba(101,67,33,0.7),0_0_40px_rgba(0,0,180,0.4)]  dark:shadow-[0_0_15px_rgba(255,200,0,0.4)]">
         © 2025 Task Manager. All rights reserved.
       </div>

@@ -1,11 +1,10 @@
 <template>
     <section
-        class="bg-[url('/image/bg.png')] bg-cover bg-center w-auto h-auto dark:bg-gray-900/90 transition min-h-screen">
-        <div class="flex flex-col lg:flex-row h-full">
+        class="bg-[url('/image/bg.png')] bg-cover bg-amber-100 bg-center  w-auto h-auto dark:bg-gray-900/90 transition min-h-screen">
+        <div class="flex flex-col lg:flex-row h-full ">
 
-            <div class="w-full lg:w-1/2 relative order-1 hidden lg:block ">
-                <img src="/image/register.png" alt="Registration Illustration" class="absolute left-0 top-1/2 -translate-y-1/2 w-96 h-[600px]
-                           shadow-[0_0_15px_rgba(101,67,33,0.7),0_0_40px_rgba(0,0,180,0.4)]  dark:shadow-[0_0_15px_rgba(255,200,0,0.4)] rounded-lg border-4 border-amber-100/20 dark:border-gray-700/20" />
+            <div class="w-full lg:w-1/2 relative order-1 hidden lg:block  ml-5">
+                <img src="/image/register.png" alt="Registration Illustration" class="absolute left-0 top-1/2 -translate-y-1/2 w-96 h-[600px]  shadow-[0_0_15px_rgba(101,67,33,0.7),0_0_40px_rgba(0,0,180,0.4)]  dark:shadow-[0_0_15px_rgba(255,200,0,0.4)] rounded-lg  border-amber-100/20 dark:border-gray-700/20" />
             </div>
 
 

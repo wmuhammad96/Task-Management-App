@@ -32,27 +32,30 @@
 <script setup>
 import api, { endpoints } from "../../axios_api.js";
 import { ref } from "vue";
+import { useToast } from "../composables/useToast.js";
 
+const toast = useToast()
 const projectName = ref("");
 
 const createProject = async () => {
   if (!projectName.value) return;
 
   try {
-    // 1. Get current projectTasks
+    
     const res = await api.get(endpoints.projectTasks);
     const current = res.data;
 
-    // 2. Merge new project
+    
     const updated = {
       ...current,
       [projectName.value]: []
     };
 
-    // 3. Replace whole object
+    
     const updateRes = await api.put(endpoints.projectTasks, updated);
 
-    console.log("Updated projectTasks:", updateRes.data);
+  toast.success("Project added succesfully")
+
     projectName.value = "";
   } catch (err) {
     console.error("Error adding project:", err);

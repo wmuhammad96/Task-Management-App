@@ -3,7 +3,7 @@
            bg-gradient-to-r from-amber-600 to-amber-950
            dark:bg-gradient-to-r dark:from-gray-900 dark:to-gray-700
            items-center  z-50 backdrop-blur-md bg-white/10 border border-white/20 
-            rounded-b-lg shadow-[0_0_15px_rgba(101,67,33,0.7),0_0_40px_rgba(0,0,180,0.4)]  dark:shadow-[0_0_15px_rgba(255,200,0,0.4)] 
+             shadow-[0_0_15px_rgba(101,67,33,0.7),0_0_40px_rgba(0,0,180,0.4)]  dark:shadow-[0_0_15px_rgba(255,200,0,0.4)] 
             p-6 text-amber-200">
 
         <div class="flex flex-row items-center gap-5">
