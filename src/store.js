@@ -88,7 +88,6 @@ const store = createStore({
   },
   actions: {
     async updateStatusOnServer({ commit }, { id, status }) {
-    // update only status on backend
     const response = await api.patch(`${endpoints.tasks}/${id}`, { status })
     commit("updateTaskStatus", response.data) 
   },
@@ -128,9 +127,7 @@ const store = createStore({
      async getProjectTasks({ commit }) {
       try {
         const response = await api.get(endpoints.projectTasks); 
-        // endpoints.projectTasks should point to your data.json or API endpoint
         commit('SET_PROJECT_TASKS', response.data);
-        console.log(response.data)
       } catch (error) {
         console.error("Failed to fetch projectTasks:", error);
       }

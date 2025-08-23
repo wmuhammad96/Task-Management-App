@@ -2,7 +2,7 @@
   "tasks": [
     {
       "id": "2f0f",
-      "status": "In Progress",
+      "status": "Completed",
       "user": "3ca5",
       "task": "Fix API bugs",
       "projects": "Development task",
@@ -29,7 +29,7 @@
     },
     {
       "id": "d31d",
-      "status": "Pending",
+      "status": "Completed",
       "user": "3ca5",
       "task": "Build login system",
       "projects": "Development task",
@@ -83,7 +83,7 @@
     },
     {
       "id": "8e85",
-      "status": "Pending",
+      "status": "Completed",
       "user": "3ca5",
       "task": "Build login system",
       "projects": "Development task",
@@ -101,7 +101,7 @@
     },
     {
       "id": "b418",
-      "status": "Pending",
+      "status": "In Progress",
       "user": "9352",
       "task": "CI/CD Maintenance",
       "projects": "DevOps & Deployment",
@@ -125,6 +125,33 @@
       "projects": "naya project",
       "priorities": "Normal delivery",
       "description": "dafds"
+    },
+    {
+      "id": "1ef3",
+      "status": "pending",
+      "user": "b40e",
+      "task": "Fix API bugs",
+      "projects": "Development task",
+      "priorities": "Urgent Delivery",
+      "description": "new task"
+    },
+    {
+      "id": "3822",
+      "status": "pending",
+      "user": "f0fc",
+      "task": "naya tasj",
+      "projects": "naya project",
+      "priorities": "Normal delivery",
+      "description": "new task"
+    },
+    {
+      "id": "bc23",
+      "status": "pending",
+      "user": "muneeb",
+      "task": "Fix API bugs",
+      "projects": "Development task",
+      "priorities": "Urgent Delivery",
+      "description": "task"
     }
   ],
   "userData": [
@@ -264,7 +291,8 @@
     "Internal Projects": [
       "Company Website Redesign",
       "Internal HR Portal",
-      "Automation Tooling"
+      "Automation Tooling",
+      "Test"
     ],
     "DevOps & Deployment": [
       "Environment Setup",
@@ -286,6 +314,11 @@
     ],
     "naya project": [
       "naya tasj"
-    ]
+    ],
+    "This is new Project": [
+      "this is new task",
+      "Another new task"
+    ],
+    "Another Project": []
   }
 }
