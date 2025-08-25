@@ -31,9 +31,6 @@
           class="p-4 rounded-lg shadow-md flex justify-between items-center bg-gradient-to-r from-cyan-400 to-indigo-500 dark:from-gray-800 dark:to-gray-900 text-gray-50 dark:text-gray-100 transition hover:scale-105"
         >
           <span class="truncate">{{ task }}</span>
-          <button class="px-3 py-1 text-xs bg-white/20 dark:bg-gray-700/50 rounded hover:opacity-90 transition">
-            Edit
-          </button>
         </div>
       </div>
 
@@ -64,7 +61,6 @@ const filteredProjects = computed(() => {
     ? [selectedProject.value]
     : projects.value
 })
-
 const filteredTasksByProject = (project) => {
   const tasks = projectsAndTasks.value[project] || []
   if (!taskFilter.value) return tasks
