@@ -1,7 +1,8 @@
 <template>
+
   <div id="modal-container"></div>
-  <div
-    class="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300 font-sans text-gray-950 dark:text-gray-100">
+  <div class="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300 font-sans text-gray-950 dark:text-gray-100">
+    
     <base-nav />
     <main class="flex-1 overflow-x-hidden">
       <div class="w-full">
@@ -13,10 +14,11 @@
         <BaseToast />
       </div>
     </main>
-    <footer
-      class="bg-gradient-to-r from-cyan-500 to-indigo-600 dark:from-gray-800 dark:to-gray-700 py-4 text-gray-950 dark:text-gray-100">
+
+    <footer class="bg-gradient-to-r from-cyan-500 to-indigo-600 dark:from-gray-800 dark:to-gray-700 py-4 text-gray-950 dark:text-gray-100">
       <div
-        class="container mx-auto px-4 text-center text-sm sm:text-base shadow-[0_0_15px_rgba(0,0,0,0.15),0_0_40px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(0,0,0,0.3)] rounded-md">
+        class="container mx-auto px-4 text-center text-[clamp(0.75rem,2.5vw,1rem)] shadow-[0_0_15px_rgba(0,0,0,0.15),0_0_40px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(0,0,0,0.3)] rounded-md"
+      >
         © 2025 Task Manager. All rights reserved.
       </div>
     </footer>
@@ -27,13 +29,13 @@
 import { watch, onMounted, onUnmounted } from 'vue'
 import { useStore } from 'vuex'
 import { useTheme } from '@/composables/useTheme'
-import BaseToast from "@/components/BaseToast.vue";
+import BaseToast from "@/components/BaseToast.vue"
 
 const store = useStore()
 
 const updateDrawer = () => {
-  if (window.innerWidth <= 767) {
-    store.dispatch("setDrawer", store.state.drawer === 'mobileClose' ? "mobileClose" : "mobile")
+  if (window.innerWidth < 768) {
+    store.dispatch("setDrawer", "mobileClose")
   } else {
     store.dispatch("setDrawer", store.state.drawer === 'mini' ? "mini" : "desktop")
   }
@@ -41,7 +43,8 @@ const updateDrawer = () => {
 
 onMounted(() => {
   document.documentElement.classList.toggle('dark', store.state.theme === 'dark')
-  document.documentElement.style.visibility = 'visible';
+  document.documentElement.style.visibility = 'visible'
+
   updateDrawer()
   window.addEventListener("resize", updateDrawer)
 })
@@ -58,6 +61,7 @@ watch(
   },
   { immediate: true }
 )
+
 
 try {
   useTheme().initTheme()
@@ -81,14 +85,13 @@ try {
 
 .slide-enter-from {
   opacity: 0;
-  transform: translateX(-20px);
+  transform: translateX(-10px); /* reduced for smoother mobile animation */
 }
 
 .slide-leave-to {
   opacity: 0;
-  transform: translateX(20px);
+  transform: translateX(10px);
 }
-
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -123,9 +126,7 @@ try {
   background: rgba(148, 163, 184, 0.8);
 }
 
-
-@media (max-width: 640px) {
-
+@media (max-width: 768px) {
   [role="button"],
   button,
   a {
@@ -133,7 +134,6 @@ try {
     min-width: 48px;
   }
 }
-
 
 @media print {
   .no-print {
@@ -145,7 +145,6 @@ try {
     color: black !important;
   }
 }
-
 
 body,
 input,
