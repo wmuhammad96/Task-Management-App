@@ -1,5 +1,5 @@
 <template>
-    <!-- Modal -->
+   
     <teleport to="#modal-container">
         <div v-if="open" class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
             <div class="bg-gradient-to-r from-amber-600 to-amber-950 dark:from-gray-800 dark:to-gray-700 

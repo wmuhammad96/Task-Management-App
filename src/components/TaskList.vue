@@ -1,107 +1,110 @@
 <template>
-  <div class="p-4 sm:p-6 bg-amber-50 dark:bg-gray-800  overflow-x-auto task-card transform transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.5)]">
-    <h1 class="text-4xl font-bold tracking-widest mb-4 text-amber-950 dark:text-gray-300">Task List</h1>
-    <div class="min-w-[600px] grid grid-cols-6 border border-amber-200 dark:border-gray-600
-             bg-gradient-to-r from-amber-950 to-amber-600 dark:bg-gradient-to-r dark:from-gray-900 dark:to-gray-700 
-             font-semibold">
-      <div v-for="header in staticHeaders" :key="header" class="px-2 sm:px-4 py-2 border border-gray-300 dark:border-gray-500 
-             text-amber-100 dark:text-gray-300 text-center text-sm sm:text-base">
+  <div class="p-4 sm:p-6 bg-gray-50 dark:bg-gray-900 overflow-x-auto font-sans transition">
+    <h1 class="text-4xl font-bold tracking-widest mb-4 text-gray-950 dark:text-gray-100">Task List</h1>
+
+   
+    <div class="min-w-[600px] grid grid-cols-6 rounded-t-lg border border-gray-300 dark:border-gray-700
+                bg-gradient-to-r from-cyan-500 to-indigo-600 dark:from-gray-800 dark:to-gray-900 font-semibold">
+      <div v-for="header in staticHeaders" :key="header"
+           class="px-3 py-2 text-gray-50 dark:text-gray-100 text-center text-sm sm:text-base">
         {{ header }}
       </div>
-      <div v-for="header in conditionalHeaders" :key="header" class="px-2 sm:px-4 py-2 border border-gray-300 dark:border-gray-500 
-             text-amber-100 dark:text-gray-300 text-center text-sm sm:text-base">
+      <div v-for="header in conditionalHeaders" :key="header"
+           class="px-3 py-2 text-gray-50 dark:text-gray-100 text-center text-sm sm:text-base">
         {{ header }}
       </div>
     </div>
 
-
-    <div class="min-w-[600px]">
-      <div v-for="task in getTask" :key="task.id" class="grid grid-cols-6 border border-amber-100 dark:border-gray-600 
-               bg-amber-100 dark:bg-gray-700 text-amber-800 dark:text-gray-200">
-        <div
-          class="px-2 sm:px-4 py-2 border border-amber-800 dark:border-gray-500 text-center text-sm sm:text-base truncate">
+    
+    <div class="min-w-[600px] rounded-b-lg overflow-hidden shadow-md">
+      <div v-for="(task, index) in getTask" :key="task.id"
+           :class="['grid grid-cols-6 text-gray-950 dark:text-gray-200',
+                    index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-700' : 'bg-white/50 dark:bg-gray-800']">
+        
+        <div class="px-3 py-2 border border-gray-300 dark:border-gray-600 text-center text-sm sm:text-base truncate">
           {{ task.projects }}
         </div>
-        <div
-          class="px-2 sm:px-4 py-2 border border-amber-800 dark:border-gray-500 text-center text-sm sm:text-base truncate">
+
+        
+        <div class="px-3 py-2 border border-gray-300 dark:border-gray-600 text-center text-sm sm:text-base truncate">
           {{ task.task }}
         </div>
-        <div
-          class="px-2 sm:px-4 py-2 border border-amber-800 dark:border-gray-500 text-center text-sm sm:text-base truncate"
-          :class="[
-            'px-3 py-1 rounded-2xl text-xs font-medium transition',
-            task.status === 'Pending' ? 'bg-yellow-200 text-yellow-800 animate-pulse' :
-              task.status === 'In Progress' ? 'bg-blue-200 text-blue-800' :
-                'bg-green-200 text-green-800'
-          ]">
+
+        
+        <div class="px-3 py-2 border border-gray-300 dark:border-gray-600 text-center text-sm sm:text-base truncate"
+             :class="{
+               'text-yellow-600 animate-pulse': task.status.toLowerCase() === 'pending',
+               'text-blue-600': task.status.toLowerCase() === 'in progress',
+               'text-green-600': task.status.toLowerCase() === 'completed'
+             }">
           {{ task.status }}
         </div>
-        <div
-          class="px-2 sm:px-4 py-2 border border-amber-800 dark:border-gray-500 text-center text-sm sm:text-base truncate">
+
+        
+        <div class="px-3 py-2 border border-gray-300 dark:border-gray-600 text-center text-sm sm:text-base truncate">
           {{ task.user }}
         </div>
 
-        <div class="px-2 sm:px-4 py-2 border border-amber-800 dark:border-gray-500 text-center">
+        
+        <div class="px-3 py-2 border border-gray-300 dark:border-gray-600 text-center">
           <button v-if="isAdmin" @click="openEditModal(task)"
-            class="text-blue-500 dark:text-blue-400 hover:opacity-80 transition transform
-                     hover:scale-105  active:scale-95 cursor-pointer text-sm sm:text-base">
-            <i :class="icon" class="text-lg text-amber-900 dark:text-gray-300"></i>
+                  class="rounded-lg p-1 text-blue-500 dark:text-blue-400 shadow hover:bg-white/20 dark:hover:bg-gray-700/30 transition transform hover:scale-105">
+            <i :class="icon"></i>
           </button>
-          <span v-else class="break-words max-w-[250px] px-2 py-2  text-center text-sm sm:text-base">{{ task.priorities
-          }}</span>
+          <span v-else class="break-words max-w-[250px] px-2 py-1 text-sm sm:text-base">
+            {{ task.priorities }}
+          </span>
         </div>
 
-        <div class="px-2 sm:px-4 py-2 border border-amber-800 dark:border-gray-500 text-center">
+        
+        <div class="px-3 py-2 border border-gray-300 dark:border-gray-600 text-center">
           <button v-if="isAdmin" @click="deleteTask(task.id)"
-            class="text-red-500 dark:text-red-400  transition transform
-                     hover:scale-105  active:scale-95 cursor-pointer text-sm sm:text-base">
-            <i :class="iconForDelete" class="text-lg text-amber-900 dark:text-gray-300"></i>
+                  class="rounded-lg p-1 text-red-500 dark:text-red-400 shadow hover:bg-white/20 dark:hover:bg-gray-700/30 transition transform hover:scale-105">
+            <i :class="iconForDelete"></i>
           </button>
-          <span v-else class="break-words max-w-[250px] px-2 py-2  text-center text-sm sm:text-base">{{ task.description
-          }}</span>
+          <span v-else class="break-words max-w-[250px] px-2 py-1 text-sm sm:text-base">
+            {{ task.description }}
+          </span>
         </div>
       </div>
     </div>
-
-
     <teleport to="body">
       <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-        <div
-          class="w-full max-w-md rounded-xl shadow-lg p-6 mx-2
-                 bg-gradient-to-b from-amber-600 to-amber-950 dark:bg-gradient-to-b dark:from-gray-800 dark:to-gray-900">
-          <h2 class="text-xl text-amber-100 dark:text-gray-300 font-bold mb-4">Edit Task</h2>
+        <div class="w-full max-w-md rounded-xl shadow-lg p-6 mx-2
+                    bg-gradient-to-b from-cyan-500 to-indigo-600 dark:from-gray-800 dark:to-gray-900">
+          <h2 class="text-xl text-gray-50 dark:text-gray-100 font-bold mb-4">Edit Task</h2>
 
-          <label class="block text-sm text-amber-100 dark:text-gray-300 font-semibold mb-1">Project</label>
-          <select v-model="selectedProject" class="border p-2 w-full mb-3 text-amber-100 dark:text-gray-300 
-                   bg-amber-950 dark:bg-gray-700 border-amber-500 dark:border-gray-600">
+          <label class="block text-sm text-gray-50 dark:text-gray-100 font-semibold mb-1">Project</label>
+          <select v-model="selectedProject"
+                  class="border p-2 w-full mb-3 rounded-lg bg-white/20 dark:bg-gray-700/50 text-gray-950 dark:text-gray-200 border-gray-300 dark:border-gray-600">
             <option v-for="p in projectOptions" :key="p" :value="p">{{ p }}</option>
           </select>
 
-          <label class="block text-sm text-amber-100 dark:text-gray-300 font-semibold mb-1">Task</label>
-          <select v-model="selectedTask" class="border p-2 w-full mb-3 text-amber-100 dark:text-gray-300 
-                   bg-amber-950 dark:bg-gray-700 border-amber-500 dark:border-gray-600">
+          <label class="block text-sm text-gray-50 dark:text-gray-100 font-semibold mb-1">Task</label>
+          <select v-model="selectedTask"
+                  class="border p-2 w-full mb-3 rounded-lg bg-white/20 dark:bg-gray-700/50 text-gray-950 dark:text-gray-200 border-gray-300 dark:border-gray-600">
             <option v-for="t in taskOptions" :key="t" :value="t">{{ t }}</option>
           </select>
 
-          <label class="block text-sm text-amber-100 dark:text-gray-300 font-semibold mb-1">Status</label>
-          <select v-model="editData.status" class="border p-2 w-full mb-3 text-amber-100 dark:text-gray-300 
-                   bg-amber-950 dark:bg-gray-700 border-amber-500 dark:border-gray-600">
+          <label class="block text-sm text-gray-50 dark:text-gray-100 font-semibold mb-1">Status</label>
+          <select v-model="editData.status"
+                  class="border p-2 w-full mb-3 rounded-lg bg-white/20 dark:bg-gray-700/50 text-gray-950 dark:text-gray-200 border-gray-300 dark:border-gray-600">
             <option>Pending</option>
             <option>In Progress</option>
             <option>Completed</option>
           </select>
 
-          <label class="block text-sm text-amber-100 dark:text-gray-300 font-semibold mb-1">User</label>
-          <input v-model="editData.user" class="border p-2 w-full mb-4 text-amber-100 dark:text-gray-300 
-                   bg-amber-950 dark:bg-gray-700 border-amber-500 dark:border-gray-600" />
+          <label class="block text-sm text-gray-50 dark:text-gray-100 font-semibold mb-1">User</label>
+          <input v-model="editData.user"
+                 class="border p-2 w-full mb-4 rounded-lg bg-white/20 dark:bg-gray-700/50 text-gray-950 dark:text-gray-200 border-gray-300 dark:border-gray-600" />
 
           <div class="flex justify-end gap-2">
-            <button @click="closeModal" class="px-4 py-2 rounded bg-amber-100 dark:bg-gray-300 text-amber-950 dark:text-gray-900 
-                     hover:opacity-80 transition cursor-pointer">
+            <button @click="closeModal"
+                    class="px-4 py-2 rounded-lg bg-white/20 dark:bg-gray-700/50 text-gray-950 dark:text-gray-200 hover:opacity-90 transition">
               Cancel
             </button>
-            <button @click="saveEdit" class="px-4 py-2 rounded bg-amber-100 dark:bg-gray-300 text-amber-950 dark:text-gray-900 
-                     hover:opacity-80 transition cursor-pointer">
+            <button @click="saveEdit"
+                    class="px-4 py-2 rounded-lg bg-white/20 dark:bg-gray-700/50 text-gray-950 dark:text-gray-200 hover:opacity-90 transition">
               Save
             </button>
           </div>
@@ -111,23 +114,21 @@
   </div>
 </template>
 
-
 <script setup>
+import { ref, computed, onMounted, watch } from 'vue'
 import { useStore } from 'vuex'
-import { computed, ref, onMounted, watch, reactive } from 'vue'
-const store = useStore()
 
+const store = useStore()
 const getTask = computed(() => store.getters.getTask)
 const projectTasks = computed(() => store.getters.getProjectTasks)
 const projectOptions = computed(() => Object.keys(projectTasks.value || {}))
+
 const icon = "pi pi-pencil"
 const iconForDelete = "pi pi-trash"
 
 const logedUser = computed(() => localStorage.getItem('user'))
 const isAdmin = computed(() => JSON.parse(logedUser.value || 'null')?.admin === 'Yes')
-const conditionalHeaders = computed(() =>
-  isAdmin.value ? ["Edit", "Delete"] : ["Priority", "Desc"]
-)
+const conditionalHeaders = computed(() => isAdmin.value ? ["Edit", "Delete"] : ["Priority", "Desc"])
 const staticHeaders = ["Project", "Task", "Status", "User"]
 
 const showModal = ref(false)
@@ -135,31 +136,21 @@ const editData = ref({})
 const selectedProject = ref('')
 const selectedTask = ref('')
 
-const taskOptions = computed(() => {
-  return selectedProject.value ? (projectTasks.value[selectedProject.value] || []) : []
-})
+const taskOptions = computed(() => selectedProject.value ? (projectTasks.value[selectedProject.value] || []) : [])
 
 watch(selectedProject, () => {
-  if (!taskOptions.value.includes(selectedTask.value)) {
-    selectedTask.value = taskOptions.value[0] || ''
-  }
+  if (!taskOptions.value.includes(selectedTask.value)) selectedTask.value = taskOptions.value[0] || ''
 })
 
 function openEditModal(task) {
   editData.value = { ...task }
   selectedProject.value = task.projects
-
   if (!projectTasks.value[selectedProject.value]) {
     const found = Object.entries(projectTasks.value).find(([_, tasks]) => tasks.includes(task.task))
     selectedProject.value = found ? found[0] : projectOptions.value[0] || ''
   }
-
   selectedTask.value = task.task
-
-  if (!taskOptions.value.includes(selectedTask.value)) {
-    selectedTask.value = taskOptions.value[0] || ''
-  }
-
+  if (!taskOptions.value.includes(selectedTask.value)) selectedTask.value = taskOptions.value[0] || ''
   showModal.value = true
 }
 
@@ -168,11 +159,7 @@ function closeModal() {
 }
 
 async function saveEdit() {
-  const payload = {
-    ...editData.value,
-    projects: selectedProject.value,
-    task: selectedTask.value
-  }
+  const payload = { ...editData.value, projects: selectedProject.value, task: selectedTask.value }
   await store.dispatch('updateTaskOnServer', payload)
   closeModal()
 }
