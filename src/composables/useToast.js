@@ -7,7 +7,7 @@ const state = reactive({
   duration: 3000
 });
 
-function triggerToast(message, type = "info", duration = 3000) {
+function triggerToast(message, type = "info", duration = 1000) {
   state.message = message;
   state.type = type;
   state.duration = duration;

@@ -1,71 +1,71 @@
 <template>
-    <section class="bg-amber-50 dark:bg-gray-800 transition">
-        <div class="flex flex-row justify-start items-start ">
-            <SideBar :handleNavigation="handleNavigation" 
-            />
-            <div class="flex transition h-full overflow-x-hidden">
-                <router-view />
-            </div>
-        </div>
-        <Modal :open="showModal" :message="modalMessage" :handleClose="closeModal" />
-    </section>
+  <section class="transition gap-3 flex">
+    <SideBar :handleNavigation="handleNavigation" class="z-50" />
+
+    <div
+      v-if="drawerType === 'mobile'"
+      @click="closeDrawer"
+      class="fixed inset-0 bg-black/10 backdrop-blur-sm z-40 md:hidden"
+    ></div>
+
+    <div
+      :class="[
+        'flex-1 transition bg-gray-50 dark:bg-gray-900 overflow-x-hidden',
+        contentClasses
+      ]"
+    >
+      <router-view />
+    </div>
+  </section>
 </template>
 
 <script setup>
-import { ref,} from "vue"
+import { computed, watch } from "vue"
 import { useRouter } from "vue-router"
+import { useStore } from "vuex"
 import SideBar from "../components/SideBar.vue"
-import Modal from "@/components/Modal.vue"
 
+const store = useStore()
 const router = useRouter()
-const showModal = ref(false)
-const modalMessage = ref('')
 
-const closeModal = () => {
-    showModal.value = false;
+const drawerType = computed(() => store.state.drawer)
+
+const contentClasses = computed(() => ({
+  "md:ml-[200px]": drawerType.value === "desktop",
+  "md:ml-[60px]": drawerType.value === "mini",
+  "ml-0": ["mobile", "mobileClose"].includes(drawerType.value),
+}))
+
+function closeDrawer() {
+  if (drawerType.value === "mobile") {
+    store.dispatch("setDrawer", "mobileClose")
+  }
 }
 
 function handleNavigation(path) {
-    let user = JSON.parse(localStorage.getItem('user'));
-
-    if (user) {
-        if ((path ==='/home/admin' && user.admin === 'No') || (path ==='/home/users' && user.admin === 'No')) {
-            modalMessage.value = 'You are not authorized to access this page.'
-            showModal.value = true
-            return false;
-        }
-        router.push(path)
-
-    } else {
-        router.push('/login');
-    }
+  router.push(path)
 }
+
+watch(drawerType, (val) => {
+  document.body.style.overflow = val === "mobile" ? "hidden" : ""
+})
 </script>
 
 <style>
-/* Smooth transitions for mobile menu */
-.fixed {
-    transition: transform 0.3s ease-in-out;
-}
-
-/* Better scrolling for sidebar */
 .overflow-y-auto {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(180, 83, 9, 0.6) rgba(217, 119, 6, 0.1);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 100, 100, 0.4) rgba(200, 200, 200, 0.2);
 }
-
 .dark .overflow-y-auto {
-    scrollbar-color: rgba(55, 65, 81, 0.6) rgba(31, 41, 55, 0.3);
+  scrollbar-color: rgba(100, 116, 139, 0.6) rgba(55, 65, 81, 0.3);
 }
 
-/* Mobile tap targets */
 @media (max-width: 768px) {
-
-    [role="button"],
-    button,
-    a {
-        min-height: 48px;
-        min-width: 48px;
-    }
+  [role="button"],
+  button,
+  a {
+    min-height: 48px;
+    min-width: 48px;
+  }
 }
 </style>

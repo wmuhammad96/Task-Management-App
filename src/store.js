@@ -11,38 +11,6 @@ const store = createStore({
       session: localStorage.getItem('session') || 'session_ended',
       login: "Login",
       projectTasks:{}
-      //  {
-      //   "Development task": [
-      //     "Build login system",
-      //     "Fix API bugs",
-      //     "Implement search functionality"
-      //   ],
-      //   "Testing & Quality Assurance": [
-      //     "Write unit tests",
-      //     "Manual testing for checkout",
-      //     "Automated UI testing"
-      //   ],
-      //   "Project & Sprint Planning": [
-      //     "Backlog grooming",
-      //     "Sprint planning meeting",
-      //     "Requirement gathering"
-      //   ],
-      //   "Internal Projects": [
-      //     "Company Website Redesign",
-      //     "Internal HR Portal",
-      //     "Automation Tooling"
-      //   ],
-      //   "DevOps & Deployment": [
-      //     "Environment Setup",
-      //     "CI/CD Maintenance",
-      //     "Monitoring"
-      //   ],
-      //   "Documentation & Communication": [
-      //     "API Docs",
-      //     "User Guides",
-      //     "Meeting Notes"
-      //   ],
-      // }
     }
   },
 
@@ -120,7 +88,6 @@ const store = createStore({
   },
   actions: {
     async updateStatusOnServer({ commit }, { id, status }) {
-    // update only status on backend
     const response = await api.patch(`${endpoints.tasks}/${id}`, { status })
     commit("updateTaskStatus", response.data) 
   },
@@ -160,9 +127,7 @@ const store = createStore({
      async getProjectTasks({ commit }) {
       try {
         const response = await api.get(endpoints.projectTasks); 
-        // endpoints.projectTasks should point to your data.json or API endpoint
         commit('SET_PROJECT_TASKS', response.data);
-        console.log(response.data)
       } catch (error) {
         console.error("Failed to fetch projectTasks:", error);
       }
